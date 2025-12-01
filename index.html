@@ -1,78 +1,98 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>O Lado Escuro da Internet - Imers√£o para Pais</title>
-  <meta name="description" content="Uma simula√ß√£o realista para pais entenderem o que seus filhos enfrentam online.">
+  <title>O Lado Escuro da Internet</title>
+  <meta name="description" content="Uma simulaÁ„o realista para pais entenderem, de verdade, o que seus filhos enfrentam online.">
   <link rel="icon" href="icon-light-32x32.png" media="(prefers-color-scheme: light)">
   <link rel="icon" href="icon-dark-32x32.png" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="apple-icon.png">
   <style>
     :root {
-      --bg: #0b0b0f;
-      --panel: #1c1d23;
-      --panel-2: #23252d;
-      --text: #f5f6f7;
-      --muted: #9ea5b1;
-      --accent: #ef4444;
-      --accent-2: #ef4444;
-      --border: #2d3038;
-      --yellow: #fbbf24;
-      --green: #16a34a;
+      --bg: #0c0c0e;
+      --panel: #111214;
+      --panel-2: #16181c;
+      --text: #e7e8ec;
+      --muted: #a5acb6;
+      --red: #e32020;
+      --red-dark: #b81919;
+      --yellow: #f0c14b;
+      --green: #2bc368;
+      --discord-bg: #2b2d31;
+      --discord-card: #313338;
+      --blue-panel: #03101e;
     }
     * { box-sizing: border-box; }
-    body { margin:0; font-family: "Inter", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+    body { margin:0; font-family: "Inter", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
-    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 32px 16px; background: linear-gradient(135deg,#0b0b0f,#1a0d0d 55%,#0b0b0f); }
-    .hero-inner { max-width: 1100px; width: 100%; display: grid; grid-template-columns: 1.1fr 1fr; gap: 32px; }
-    @media (max-width: 960px){ .hero-inner{ grid-template-columns: 1fr; } }
-    .title { font-size: clamp(36px,5vw,72px); line-height: 0.95; margin: 0; }
-    .title span { color: var(--accent-2); }
-    .subtitle { font-size: 20px; color: var(--muted); margin: 16px 0 0; max-width: 640px; }
-    .alert { margin-top: 20px; background: rgba(251,191,36,0.1); border-left: 3px solid var(--yellow); padding: 14px 16px; color: var(--yellow); font-size: 14px; }
-    .cta-primary { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; font-weight: 800; font-size: 18px; text-transform: uppercase; background: var(--accent-2); color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: transform .1s ease, filter .2s ease; }
+    .wrap { max-width: 420px; margin: 0 auto; padding: 24px 18px 64px; }
+    .hero-block { margin-bottom: 16px; }
+    .hero-title { font-size: 36px; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 12px; }
+    .hero-title strong { color: var(--red); display: block; }
+    .hero-sub { color: #c6ceda; font-size: 15px; line-height: 1.6; margin: 0 0 18px; }
+    .card-dark { background: linear-gradient(135deg, #170b0b, #13090c); border: 1px solid #2a1717; padding: 18px; border-radius: 8px; margin: 0 0 22px; box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+    .card-dark h2 { margin: 0 0 8px; color: var(--text); font-size: 18px; line-height: 1.4; }
+    .card-dark .punch { color: var(--red); font-size: 20px; font-weight: 800; }
+    .list { padding-left: 0; margin: 0 0 18px; list-style: none; }
+    .list li { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); margin-bottom: 10px; font-size: 14px; line-height: 1.5; }
+    .bullet { color: var(--red); font-weight: 900; }
+    .warning { background: linear-gradient(90deg, rgba(240,193,75,0.18), rgba(240,193,75,0.08)); border-left: 3px solid var(--yellow); padding: 12px 14px; border-radius: 6px; color: #f3d584; font-size: 13px; margin-bottom: 22px; }
+    .cta-primary { width: 100%; background: var(--red); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 800; font-size: 16px; letter-spacing: 0.3px; cursor: pointer; box-shadow: 0 10px 30px rgba(227,32,32,0.35); transition: transform 0.1s ease, filter 0.15s ease; }
     .cta-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
     .cta-primary:active { transform: translateY(0); }
 
-    .app { max-width: 1200px; margin: 32px auto 0; background: #111318; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: grid; grid-template-columns: 70px 240px 1fr; min-height: 520px; }
-    @media (max-width: 1024px){ .app{ grid-template-columns: 1fr; } .col-servers,.col-channels{ display:none; } }
-    .col-servers { background: #171821; padding: 12px 8px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-    .server { width: 52px; height: 52px; border-radius: 18px; background: #5865f2; color: #fff; font-weight: 800; display: grid; place-items: center; cursor: pointer; transition: border-radius .2s, transform .15s; }
-    .server:hover { border-radius: 16px; transform: translateY(-2px); }
-    .col-channels { background: #1c1d23; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-    .section-title { font-size: 12px; text-transform: uppercase; color: var(--muted); letter-spacing: 0.04em; padding: 12px 14px 6px; }
-    .channel { padding: 10px 14px; margin: 0 8px 6px; border-radius: 10px; display: flex; align-items: center; gap: 10px; color: var(--muted); cursor: pointer; transition: background .15s,color .15s; }
-    .channel.active { background: #2c2f38; color: #fff; }
-    .channel:hover { background: #22242c; color: #fff; }
-    .main { background: #111318; display: flex; flex-direction: column; }
-    .main-top { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; position: sticky; top: 0; background: #111318; z-index: 5; }
-    .hash { color: #888; }
-    .topic { color: var(--muted); font-size: 13px; }
-    .chat-area { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-    .chat-scroll { flex: 1; padding: 12px 18px; overflow-y: auto; }
-    .msg { display: flex; gap: 12px; padding: 8px 0; }
-    .avatar { width: 40px; height: 40px; border-radius: 50%; background: #3a3d4a; color: #fff; font-weight: 700; display: grid; place-items: center; }
-    .avatar.danger { background: #c2410c; }
-    .msg-content { flex: 1; }
-    .msg-header { display: flex; align-items: baseline; gap: 8px; }
-    .user { font-weight: 700; }
-    .time { color: var(--muted); font-size: 12px; }
-    .bubble { color: #dbe0ea; line-height: 1.5; }
-    .alert-box { margin-top: 8px; padding: 10px 12px; background: rgba(239,68,68,0.08); border-left: 3px solid var(--accent-2); color: #fca5a5; font-size: 13px; border-radius: 8px; }
-    .typing { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; color: var(--muted); font-size: 12px; }
-    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: bounce 1s infinite; }
-    .dot:nth-child(2){ animation-delay: 0.2s; }
-    .dot:nth-child(3){ animation-delay: 0.4s; }
-    @keyframes bounce { 0%,80%,100%{ transform: translateY(0);} 40%{ transform: translateY(-4px);} }
-    .footer-cta { padding: 12px 16px; border-top: 1px solid var(--border); }
-    .btn-next { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 18px; border-radius: 10px; background: var(--green); color: #fff; font-weight: 700; border: none; cursor: pointer; }
-    .btn-next:hover { filter: brightness(1.05); }
-    .cta-final { text-align: center; padding: 28px 16px; }
-    .cta-final h2 { margin: 0 0 10px; font-size: 28px; }
-    .cta-final p { margin: 0 0 16px; color: var(--muted); }
-    .btn-buy { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 22px; border-radius: 12px; background: var(--accent-2); color: #fff; font-weight: 800; border: none; cursor: pointer; text-transform: uppercase; }
+    /* SimulaÁ„o */
+    .sim-block { margin-top: 28px; }
+    .sim-phone { background: var(--discord-bg); border: 1px solid #1f2026; border-radius: 14px; overflow: hidden; box-shadow: 0 14px 40px rgba(0,0,0,0.35); }
+    .sim-top { background: #202225; color: #d8dce4; padding: 10px 12px; display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 13px; letter-spacing: 0.1px; }
+    .sim-top .pill { width: 4px; height: 16px; border-radius: 10px; background: #3ba55c; }
+    .sim-top .icon-row { display: flex; gap: 10px; margin-left: auto; opacity: 0.7; }
+    .sim-scroll { background: var(--discord-card); min-height: 500px; max-height: 560px; overflow-y: auto; padding: 14px 12px 90px; }
+    .msg { display: flex; gap: 10px; margin-bottom: 12px; color: #e6e8f0; font-size: 14px; }
+    .avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; background-size: cover; background-position: center; background-repeat: no-repeat; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px; }
+    .bubble { background: #2f3136; padding: 6px 10px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); color: #e6e8f0; line-height: 1.5; }
+    .header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+    .name { font-weight: 700; }
+    .time { color: #a3a9b5; font-size: 12px; }
+    .alert-box { margin-top: 6px; padding: 10px 12px; background: rgba(227,32,32,0.14); border: 1px solid rgba(227,32,32,0.35); border-radius: 8px; color: #f2a5a5; font-size: 13px; }
+    .typing { display: inline-flex; align-items: center; gap: 6px; color: #a3a9b5; font-size: 13px; margin-top: 2px; }
+    .dot { width: 6px; height: 6px; background: #a3a9b5; border-radius: 50%; animation: blink 1.2s infinite; }
+    .dot:nth-child(2){ animation-delay: .15s; }
+    .dot:nth-child(3){ animation-delay: .3s; }
+    @keyframes blink { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+    .sim-footer { position: relative; margin-top: -70px; padding: 0 12px 14px; }
+    .fake-input { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.04); color: #7c828f; padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+    .fake-icons { margin-left: auto; display: flex; gap: 10px; opacity: 0.6; }
+    .progress { text-align: center; margin-top: 10px; }
+    .btn-next { width: 100%; background: var(--green); color: #0c0e11; font-weight: 800; border: none; padding: 12px; border-radius: 10px; cursor: pointer; box-shadow: 0 10px 30px rgba(43,195,104,0.35); }
+    .btn-next:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+
+    /* PrÈ-offer */
+    .pre-offer { margin-top: 36px; background: linear-gradient(180deg, #1a0d0f 0%, #0e0d0f 100%); border: 1px solid #251316; border-radius: 12px; padding: 26px 18px; box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+    .pre-offer h3 { margin: 0 0 12px; font-size: 26px; line-height: 1.2; }
+    .pre-offer h3 .red { color: var(--red); }
+    .pre-offer p { margin: 0 0 16px; color: var(--muted); line-height: 1.6; }
+
+    /* Offer */
+    .offer { margin-top: 32px; background: #030b14; border: 1px solid #0b1c2d; border-radius: 14px; padding: 24px 18px 28px; color: #d8e7ff; box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+    .offer h4 { margin: 0 0 10px; font-size: 22px; }
+    .offer p { margin: 0 0 18px; color: #9bb3d4; line-height: 1.6; }
+    .stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 18px; font-weight: 700; }
+    .kit { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 14px; }
+    .kit-title { font-weight: 800; margin: 0 0 4px; color: #d8e7ff; }
+    .kit-sub { margin: 0 0 14px; color: #8ea8c9; }
+    .kit-list { list-style: none; padding: 0; margin: 0 0 12px; }
+    .kit-list li { display: flex; gap: 10px; color: #c8d9f2; margin-bottom: 10px; font-size: 14px; }
+    .check { color: #4ade80; font-weight: 900; }
+    .price { display: flex; align-items: baseline; gap: 12px; margin: 14px 0; }
+    .price .now { font-size: 26px; font-weight: 800; color: #7dd3fc; }
+    .price .old { color: #6b7d94; text-decoration: line-through; }
+    .btn-offer { width: 100%; background: linear-gradient(90deg, #0ea5e9, #3b82f6); border: none; color: #fff; font-weight: 800; padding: 14px; border-radius: 10px; box-shadow: 0 12px 30px rgba(59,130,246,0.35); cursor: pointer; }
+    .guarantee { margin: 12px 0 0; text-align: center; color: #8ea8c9; font-size: 13px; }
+
+    .hidden { display: none; }
   </style>
 </head>
 <body>
@@ -96,176 +116,185 @@
     })();
   </script>
 
-  <div class="hero">
-    <div class="hero-inner">
-      <div>
-        <h1 class="title">O LADO ESCURO<br><span>DA INTERNET</span></h1>
-        <p class="subtitle">Uma simula√ß√£o realista para pais entenderem, de verdade, o que seus filhos enfrentam online.</p>
-        <div class="alert"><strong>AVISO:</strong> Esta simula√ß√£o n√£o cont√©m imagens expl√≠citas, mas apresenta contextos reais que podem ser perturbadores.</div>
-        <div style="margin-top:24px;">
-          <button class="cta-primary" id="start-btn">Iniciar Imers√£o</button>
+  <div class="wrap">
+    <div class="hero-block">
+      <h1 class="hero-title">O LADO ESCURO<br><strong>DA INTERNET</strong></h1>
+      <p class="hero-sub">Uma simulaÁ„o realista para pais entenderem, de verdade, o que seus filhos enfrentam online.</p>
+    </div>
+    <div class="card-dark">
+      <h2>VocÍ acha que sabe o que seu filho vÍ na internet?</h2>
+      <div class="punch">VocÍ n„o sabe.</div>
+    </div>
+    <ul class="list">
+      <li><span class="bullet">?</span> AssÈdios disfarÁados de amizade</li>
+      <li><span class="bullet">?</span> AmeaÁas e manipulaÁıes psicolÛgicas</li>
+      <li><span class="bullet">?</span> Conte˙dos imprÛprios compartilhados em grupos</li>
+      <li><span class="bullet">?</span> Linguagens codificadas usadas para enganar menores</li>
+    </ul>
+    <div class="warning"><strong>AVISO:</strong> Esta simulaÁ„o n„o contÈm imagens explÌcitas, mas apresenta contextos reais que podem ser perturbadores.</div>
+    <button id="start" class="cta-primary">Iniciar Imers„o</button>
+
+    <div class="sim-block hidden" id="sim">
+      <div class="sim-phone">
+        <div class="sim-top">
+          <span class="pill"></span>
+          <span id="channel-label">fortfriends-geral</span>
+          <span class="icon-row">? # ??</span>
+        </div>
+        <div class="sim-scroll" id="sim-messages"></div>
+        <div class="sim-footer">
+          <div class="progress"><button class="btn-next" id="next" disabled>Carregando...</button></div>
+          <div class="fake-input">+ Mensagem em fortfriends-geral <span class="fake-icons">?? ??</span></div>
         </div>
       </div>
-      <div class="app" id="app-shell" style="display:none;">
-        <div class="col-servers">
-          <div class="server">F</div>
-          <div style="width: 80%; height: 2px; background:#2d3038; border-radius: 10px;"></div>
-          <div class="server" data-phase="0">üéÆ</div>
-          <div class="server" data-phase="1">üîí</div>
-          <div class="server" data-phase="2">‚ö†Ô∏è</div>
-        </div>
-        <div class="col-channels">
-          <div class="section-title">Canais de texto</div>
-          <div class="channel active" data-phase="0"># fortfriends-geral</div>
-          <div class="channel" data-phase="1"># amigos-especiais</div>
-          <div class="channel" data-phase="2"># conversas-privadas</div>
-          <div class="section-title">Canais de voz</div>
-          <div class="channel">üé§ Call Geral</div>
-          <div class="channel">üéß AFK</div>
-        </div>
-        <div class="main">
-          <div class="main-top">
-            <span class="hash">#</span>
-            <span id="channel-title">fortfriends-geral</span>
-            <div style="height:18px;width:1px;background:var(--border);margin:0 12px;"></div>
-            <span class="topic" id="channel-topic">Servidor p√∫blico de Fortnite Brasil</span>
-          </div>
-          <div class="chat-area">
-            <div class="chat-scroll" id="chat-scroll"></div>
-            <div class="footer-cta">
-              <button class="btn-next" id="next-btn" disabled>Carregando...</button>
-            </div>
-          </div>
-        </div>
+    </div>
+
+    <div class="pre-offer hidden" id="pre">
+      <h3>Esse ambiente È <span class="red">falso.</span></h3>
+      <p>Mas situaÁıes idÍnticas acontecem todos os dias com milhares de crianÁas brasileiras.</p>
+      <h4 style="margin:12px 0 8px; font-size:20px;">O que vocÍ pode fazer agora?</h4>
+      <p>Conhecer os perigos È apenas o primeiro passo. Veja como proteger seus filhos efetivamente.</p>
+    </div>
+
+    <div class="offer hidden" id="offer">
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px; color:#7dd3fc; font-weight:700;">??? Proteja Seu Filho Agora</div>
+      <h4>Proteja Seu Filho Agora</h4>
+      <p>VocÍ viu os perigos. Agora tenha acesso ao kit completo para proteger seus filhos online.</p>
+      <div class="stat">+9.000 pais<br><span style="color:#9bb3d4; font-weight:500;">j· protegeram seus filhos com este mÈtodo</span></div>
+      <div class="kit">
+        <div class="kit-title">Kit Completo de ProteÁ„o Digital</div>
+        <div class="kit-sub">Tudo que vocÍ precisa em um sÛ lugar</div>
+        <ul class="kit-list">
+          <li><span class="check">?</span> Guia Completo de SeguranÁa Digital (PDF 50+ p·ginas)</li>
+          <li><span class="check">?</span> Roteiro de Di·logo com Seus Filhos</li>
+          <li><span class="check">?</span> Checklist de ConfiguraÁıes para cada app</li>
+          <li><span class="check">?</span> Lista de Apps de Monitoramento testados</li>
+          <li><span class="check">?</span> Suporte por 7 dias com especialistas</li>
+        </ul>
+        <div class="price"><span class="now">R$ 19,90</span><span class="old">R$ 97</span></div>
+        <button class="btn-offer" onclick="window.location.href='https://pay.lirapaybr.com/kpXiFYQo'">Garantir Acesso Agora</button>
+        <div class="guarantee">? Acesso imediato ï ? Garantia de 7 dias ï ? Pagamento seguro</div>
       </div>
     </div>
   </div>
 
   <script>
+    const startBtn = document.getElementById('start');
+    const simBlock = document.getElementById('sim');
+    const msgWrap = document.getElementById('sim-messages');
+    const nextBtn = document.getElementById('next');
+    const channelLabel = document.getElementById('channel-label');
+    const preOffer = document.getElementById('pre');
+    const offer = document.getElementById('offer');
+
     const phases = [
       {
-        title: "fortfriends-geral",
-        topic: "Servidor p√∫blico de Fortnite Brasil",
+        channel: 'fortfriends-geral',
         messages: [
-          {u:"D4rkWolf13", t:"14:23", msg:"fala galera"},
-          {u:"D4rkWolf13", t:"14:23", msg:"bora uma ranked??"},
-          {u:"SweetAngel", t:"14:23", msg:"oiiii"},
-          {u:"SweetAngel", t:"14:23", msg:"bora simm, vou ligar mic", reaction:true},
-          {u:"ProKillerX", t:"14:24", msg:"kkkkkk"},
-          {u:"ProKillerX", t:"14:24", msg:"vcss s√£o mt ruim kkkkkk perderam ontem feio", danger:true, alert:"Bullying e linguagem t√≥xica s√£o extremamente comuns em chats de jogos"},
-          {u:"YumiKitty", t:"14:24", msg:"pra de ser chato"},
-          {u:"M4st3rHelp", t:"14:25", msg:"alguem ai √© novo no jogo? posso ajudar com dicas", danger:true, alert:"Adultos se apresentam como experientes para ganhar confian√ßa"},
-          {u:"YumiKitty", t:"14:25", msg:"eu sou nova sim!"},
-          {u:"YumiKitty", t:"14:25", msg:"tenho 11 anos e to aprendendo ainda"},
-          {u:"M4st3rHelp", t:"14:26", msg:"@YumiKitty legal! vem no privado q eu te ensino uns macetes top", danger:true, alert:"ALERTA: Tentativa de isolar a crian√ßa em conversa privada"},
-          {u:"M4st3rHelp", t:"14:26", msg:"tenho uns truques q vao te deixar nivel pro rapidao", danger:true, alert:"Uso de promessas tentadoras para ganhar confian√ßa"}
+          {u:'D4rkWolf13', t:'14:23', msg:'fala galera', avatar:'wolf'},
+          {u:'D4rkWolf13', t:'14:23', msg:'bora uma ranked??', avatar:'wolf'},
+          {typing:true, u:'SweetAngel'},
+          {u:'M4st3rHelp', t:'14:25', msg:'eae pessoal td bem?\nalguem ai È novo no jogo? posso ajudar com dicas', avatar:'m4', alert:'Adultos frequentemente se apresentam como "jogadores experientes" querendo ajudar'},
+          {u:'YumiKitty', t:'14:25', msg:'eu sou nova sim!\ntenho 11 anos e to aprendendo ainda', avatar:'yumi'},
+          {u:'D4rkWolf13', t:'14:26', msg:'suave, todo mundo comeÁa em algum lugar nÈ', avatar:'wolf', reaction:'?? 1'},
+          {u:'M4st3rHelp', t:'14:26', msg:'@YumiKitty legal! vem no privado q eu te ensino uns macetes top', avatar:'m4', alert:'ALERTA: Tentativa de isolar a crianÁa em conversa privada'},
+          {u:'M4st3rHelp', t:'14:26', msg:'tenho uns truques q vao te deixar nivel pro rapidao', avatar:'m4', alert:'Uso de promessas tentadoras para ganhar confianÁa'}
         ]
       },
       {
-        title: "amigos-especiais",
-        topic: "Grupo privado (6 membros)",
+        channel: 'amigos-especiais',
         messages: [
-          {u:"M4st3rHelp", t:"15:12", msg:"e ai, conseguiu fazer aquelas missoes q te falei?"},
-          {u:"YumiKitty", t:"15:12", msg:"conseguiii"},
-          {u:"YumiKitty", t:"15:12", msg:"vlw msm pela ajuda"},
-          {u:"XxCuteLoverxX", t:"15:13", msg:"vc parece ser daora... qnts anos vc tem?", danger:true, alert:"Perguntar idade √© o primeiro passo do aliciador"},
-          {u:"YumiKitty", t:"15:13", msg:"11, pq?"},
-          {u:"M4st3rHelp", t:"15:14", msg:"manda uma foto sua pra gnt te conhecer melhor", danger:true, alert:"Solicita√ß√£o de foto em ambiente privado"},
-          {u:"M4st3rHelp", t:"15:14", msg:"todo mundo aqui ja mandou a deles", danger:true, alert:"Press√£o social para normalizar comportamento perigoso"},
-          {u:"XxCuteLoverxX", t:"15:15", msg:"tem skns gratis pra todo mundo ‚Üí bit.ly/sk1ns-gr4t1s", danger:true, alert:"Links encurtados podem levar a phishing/malware"},
-          {u:"M4st3rHelp", t:"15:16", msg:"se passar seu login e senha eu coloco umas skins raras pra vc", danger:true, alert:"Tentativa de roubo de conta disfar√ßada de favor"},
-          {u:"M4st3rHelp", t:"15:16", msg:"fa√ßo isso pros meus amigos sempre, confia", danger:true, alert:"Manipula√ß√£o para falsa confian√ßa"}
+          {u:'M4st3rHelp', t:'15:12', msg:'e ai, conseguiu fazer aquelas missoes q te falei?', avatar:'m4'},
+          {u:'YumiKitty', t:'15:12', msg:'conseguiii\nvlw msm pela ajuda', avatar:'yumi'},
+          {u:'XxCuteLoverxX', t:'15:13', msg:'vc parece ser daora... qnts anos vc tem?', avatar:'love', alert:'Pergunta sobre idade È frequentemente o primeiro passo do aliciador'},
+          {u:'M4st3rHelp', t:'15:14', msg:'manda uma foto sua pra gnt te conhecer melhor', avatar:'m4', alert:'SolicitaÁ„o de foto em ambiente privado'},
+          {u:'M4st3rHelp', t:'15:14', msg:'todo mundo aqui ja mandou a deles', avatar:'m4', alert:'Press„o social para normalizar o comportamento perigoso'},
+          {u:'XxCuteLoverxX', t:'15:15', msg:'tem skns gratis pra todo mundo ? bit.ly/sk1ns-gr4t1s', avatar:'love', alert:'Links encurtados podem levar a phishing/malware'},
+          {u:'M4st3rHelp', t:'15:16', msg:'se vc me passar seu login e senha eu coloco umas skins raras pra vc', avatar:'m4', alert:'Tentativa de roubo de conta disfarÁada de favor'},
+          {u:'M4st3rHelp', t:'15:16', msg:'faÁo isso pros meus amigos sempre, confia', avatar:'m4', alert:'ManipulaÁ„o para construir falsa confianÁa'}
         ]
       },
       {
-        title: "conversas-privadas",
-        topic: "Chat direto",
+        channel: 'conversas-privadas',
         messages: [
-          {u:"M4st3rHelp", t:"16:45", msg:"olha, preciso q vc me fa√ßa um favor..."},
-          {u:"M4st3rHelp", t:"16:46", msg:"mas eh segredo nosso ta? nao conta pra ninguem", danger:true, alert:"Manipula√ß√£o emocional para manter segredo dos pais"},
-          {u:"M4st3rHelp", t:"16:47", msg:"se vc contar pros seus pais vou te excluir daqui", danger:true, alert:"Chantagem emocional para silenciar"},
-          {u:"XxCuteLoverxX", t:"16:48", msg:"alias... ja descobri seu nome completo", danger:true, alert:"Amea√ßa usando informa√ß√µes pessoais reais"},
-          {u:"XxCuteLoverxX", t:"16:48", msg:"Mariana Costa, aluna da escola santos dumont ne?", danger:true, alert:"Perigo extremo: exposi√ß√£o de dados reais"},
-          {u:"M4st3rHelp", t:"16:49", msg:"seus pais nao vao entender isso", danger:true, alert:"Isolamento emocional"},
-          {u:"M4st3rHelp", t:"16:49", msg:"eles so vao te castigar e tirar seu celular", danger:true, alert:"Medo de puni√ß√£o para manter sil√™ncio"}
+          {u:'M4st3rHelp', t:'16:45', msg:'olha, preciso q vc me faÁa um favor...', avatar:'m4'},
+          {u:'M4st3rHelp', t:'16:46', msg:'mas eh segredo nosso ta? nao conta pra ninguem', avatar:'m4', alert:'ManipulaÁ„o emocional para manter segredo dos pais'},
+          {u:'M4st3rHelp', t:'16:47', msg:'se vc contar pros seus pais eu vou te excluir daqui', avatar:'m4', alert:'Chantagem emocional para silenciar'},
+          {u:'XxCuteLoverxX', t:'16:48', msg:'alias... ja descobri seu nome completo\nMariana Costa, aluna da escola santos dumont ne?', avatar:'love', alert:'Perigo extremo: ameaÁa usando dados reais'},
+          {u:'M4st3rHelp', t:'16:49', msg:'seus pais nao vao entender isso\nelses so vao te castigar e tirar seu celular', avatar:'m4', alert:'Medo de puniÁ„o para manter a crianÁa silenciada'}
         ]
       }
     ];
 
-    const startBtn = document.getElementById('start-btn');
-    const appShell = document.getElementById('app-shell');
-    const chatScroll = document.getElementById('chat-scroll');
-    const channelTitle = document.getElementById('channel-title');
-    const channelTopic = document.getElementById('channel-topic');
-    const nextBtn = document.getElementById('next-btn');
-    const channels = document.querySelectorAll('.channel');
-    const servers = document.querySelectorAll('.server[data-phase]');
-
-    let currentPhase = 0;
+    let phase = 0;
     let timer = null;
 
-    function setActivePhase(idx){
-      currentPhase = idx;
-      channels.forEach(c=>c.classList.toggle('active', Number(c.dataset.phase)===idx));
-      servers.forEach(s=>s.style.background = Number(s.dataset.phase)===idx ? '#5865f2' : '#313338');
-      channelTitle.textContent = phases[idx].title;
-      channelTopic.textContent = idx===0 ? "Servidor p√∫blico de Fortnite Brasil" : idx===1 ? "Grupo privado (6 membros)" : "Chat direto";
-      playTimeline();
+    function avatarStyle(id){
+      if(id === 'wolf') return 'linear-gradient(135deg,#4f8bff,#2f5bff)';
+      if(id === 'yumi') return 'linear-gradient(135deg,#f472b6,#f9a8d4)';
+      if(id === 'm4') return 'linear-gradient(135deg,#22c55e,#16a34a)';
+      if(id === 'love') return 'linear-gradient(135deg,#ec4899,#f97316)';
+      return '#5865f2';
     }
 
-    function appendMessage(msg){
-      const wrap = document.createElement('div');
-      wrap.className = 'msg';
-      wrap.innerHTML = `
-        <div class="avatar ${msg.danger?'danger':''}">${msg.u.slice(0,2).toUpperCase()}</div>
-        <div class="msg-content">
-          <div class="msg-header"><span class="user">${msg.u}</span><span class="time">${msg.t}</span>${msg.danger?'<span class="tag">ALERTA</span>':''}</div>
-          <div class="bubble">${msg.msg}</div>
-          ${msg.alert ? `<div class="alert-box">${msg.alert}</div>` : ''}
-        </div>
-      `;
-      chatScroll.appendChild(wrap);
-      chatScroll.scrollTop = chatScroll.scrollHeight;
+    function appendMessage(m){
+      const row = document.createElement('div');
+      row.className = 'msg';
+      if(m.typing){
+        row.innerHTML = `<div class="avatar" style="background:${avatarStyle('yumi')}">SA</div>
+          <div>
+            <div class="bubble" style="background:#2f3136; color:#a3a9b5;">SweetAngel <span class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          </div>`;
+        msgWrap.appendChild(row);
+        msgWrap.scrollTop = msgWrap.scrollHeight;
+        return;
+      }
+      row.innerHTML = `
+        <div class="avatar" style="background:${avatarStyle(m.avatar)}">${m.u.slice(0,2).toUpperCase()}</div>
+        <div style="flex:1;">
+          <div class="header"><span class="name">${m.u}</span><span class="time">${m.t || ''}</span></div>
+          <div class="bubble">${(m.msg||'').replace(/\n/g,'<br>')}</div>
+          ${m.reaction ? `<div style="margin-top:4px; color:#c8d9f2; font-size:12px;">${m.reaction}</div>` : ''}
+          ${m.alert ? `<div class="alert-box">${m.alert}</div>` : ''}
+        </div>`;
+      msgWrap.appendChild(row);
+      msgWrap.scrollTop = msgWrap.scrollHeight;
     }
 
-    function playTimeline(){
+    function playPhase(){
       clearInterval(timer);
-      chatScroll.innerHTML = '';
+      msgWrap.innerHTML = '';
+      channelLabel.textContent = '#' + phases[phase].channel;
       nextBtn.disabled = true;
-      nextBtn.textContent = 'Reproduzindo...';
-      const msgs = phases[currentPhase].messages;
+      nextBtn.textContent = 'Carregando...';
+      const seq = [...phases[phase].messages];
       let i = 0;
       timer = setInterval(()=>{
-        appendMessage(msgs[i]);
+        appendMessage(seq[i]);
         i++;
-        if(i>=msgs.length){
+        if(i >= seq.length){
           clearInterval(timer);
           nextBtn.disabled = false;
-          nextBtn.textContent = currentPhase < phases.length-1 ? `Pr√≥xima fase (${currentPhase+1}/3)` : 'Ver Conte√∫do Educativo';
+          nextBtn.textContent = phase < phases.length-1 ? `PrÛxima Fase (${phase+1}/3)` : 'Ver Conte˙do Educativo';
         }
-      }, 1200);
+      }, 1100);
     }
 
     startBtn.addEventListener('click', ()=>{
-      appShell.style.display = 'grid';
-      document.querySelector('.hero').scrollIntoView({behavior:'smooth'});
-      setActivePhase(0);
+      simBlock.classList.remove('hidden');
+      document.querySelector('.wrap').scrollIntoView({behavior:'smooth'});
+      phase = 0;
+      playPhase();
     });
 
-    channels.forEach(c=>c.addEventListener('click', ()=> setActivePhase(Number(c.dataset.phase))));
-    servers.forEach(s=>s.addEventListener('click', ()=> setActivePhase(Number(s.dataset.phase))));
-
     nextBtn.addEventListener('click', ()=>{
-      if(currentPhase < phases.length-1){
-        setActivePhase(currentPhase+1);
-      }else{
-        document.querySelector('.chat-area').innerHTML = `
-          <div class="cta-final">
-            <h2>Proteja sua fam√≠lia agora</h2>
-            <p>Voc√™ viu os perigos. Tenha acesso ao kit completo de prote√ß√£o digital.</p>
-            <a class="btn-buy" href="https://pay.lirapaybr.com/kpXiFYQo">Garantir Acesso</a>
-          </div>
-        `;
+      if(phase < phases.length-1){
+        phase += 1;
+        playPhase();
+      } else {
+        preOffer.classList.remove('hidden');
+        offer.classList.remove('hidden');
+        preOffer.scrollIntoView({behavior:'smooth'});
       }
     });
   </script>
