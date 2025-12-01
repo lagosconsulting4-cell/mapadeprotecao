@@ -28,8 +28,8 @@
     .wrap { width: 100%; max-width: none; margin: 0 auto; padding: 0; min-height: 100vh; }
     .screen { display: none; padding: 24px 18px 64px; min-height: 100vh; }
     .screen.active { display: block; }
-    .inner { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
-    .hero-title { font-size: 36px; line-height: 1.05; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 12px; }
+    .inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+    .hero-title { font-size: clamp(32px, 5vw, 42px); line-height: 1.05; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 12px; }
     .hero-title strong { color: var(--red); display: block; }
     .hero-sub { color: #c6ceda; font-size: 15px; line-height: 1.6; margin: 0 0 18px; }
     .card-dark { background: linear-gradient(135deg, #170b0b, #13090c); border: 1px solid #2a1717; padding: 18px; border-radius: 8px; margin: 0 0 10px; box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
@@ -42,12 +42,22 @@
     .cta-primary { width: 100%; background: var(--red); color: #fff; border: none; padding: 14px; border-radius: 8px; font-weight: 800; font-size: 16px; letter-spacing: 0.3px; cursor: pointer; box-shadow: 0 10px 30px rgba(227,32,32,0.35); transition: transform 0.1s ease, filter 0.15s ease; }
     .cta-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
 
-    .sim-phone { background: var(--discord-bg); border: 1px solid #1f2026; border-radius: 14px; overflow: hidden; box-shadow: 0 14px 40px rgba(0,0,0,0.35); }
-    .sim-top { background: #202225; color: #d8dce4; padding: 10px 12px; display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 13px; letter-spacing: 0.1px; }
-    .sim-top .pill { width: 4px; height: 16px; border-radius: 10px; background: #3ba55c; }
-    .sim-top .icon-row { display: flex; gap: 10px; margin-left: auto; opacity: 0.7; }
-    .sim-scroll { background: var(--discord-card); min-height: 520px; max-height: 560px; overflow-y: auto; padding: 14px 12px 90px; }
-    .msg { display: flex; gap: 10px; margin-bottom: 12px; color: #e6e8f0; font-size: 14px; }
+    /* Discord layout */
+    .sim-app { background: #1e1f24; border: 1px solid #22252d; border-radius: 12px; overflow: hidden; display: grid; grid-template-columns: 72px 220px 1fr; min-height: 520px; box-shadow: 0 18px 50px rgba(0,0,0,0.35); }
+    .sim-servers { background: #1a1b21; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 12px 8px; }
+    .server-dot { width: 48px; height: 48px; border-radius: 16px; background: #5865f2; color: #fff; font-weight: 800; display: grid; place-items: center; cursor: pointer; }
+    .server-icon { width: 48px; height: 48px; border-radius: 16px; background: #2f3136; display: grid; place-items: center; color: #8ea1e1; font-size: 24px; cursor: pointer; }
+    .divider { width: 60%; height: 2px; background: #2f3136; border-radius: 10px; }
+    .sim-channels { background: #23252b; color: #cdd4e0; padding: 12px; border-right: 1px solid #1f2026; display: flex; flex-direction: column; gap: 10px; }
+    .sim-channels .title { font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .channel-item { padding: 8px 10px; border-radius: 8px; display: flex; align-items: center; gap: 8px; color: #9ea5b5; cursor: pointer; }
+    .channel-item.active { background: #3a3d45; color: #fff; }
+    .sim-main { background: var(--discord-card); display: flex; flex-direction: column; }
+    .sim-topbar { background: #2f3136; color: #e4e5eb; padding: 10px 14px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #1f2026; }
+    .sim-topbar .dot { width: 8px; height: 8px; border-radius: 50%; background: #23a55a; }
+    .sim-topbar .topic { color: #9ea5b5; font-size: 13px; }
+    .sim-chat { flex: 1; overflow-y: auto; padding: 16px 18px 90px; }
+    .msg { display: flex; gap: 10px; margin-bottom: 14px; color: #e6e8f0; font-size: 14px; }
     .avatar { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; background-size: cover; background-position: center; background-repeat: no-repeat; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px; }
     .bubble { background: #2f3136; padding: 6px 10px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); color: #e6e8f0; line-height: 1.5; }
     .header { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
@@ -55,9 +65,9 @@
     .time { color: #a3a9b5; font-size: 12px; }
     .alert-box { margin-top: 6px; padding: 10px 12px; background: rgba(227,32,32,0.14); border: 1px solid rgba(227,32,32,0.35); border-radius: 8px; color: #f2a5a5; font-size: 13px; }
     .typing { display: inline-flex; align-items: center; gap: 6px; color: #a3a9b5; font-size: 13px; margin-top: 2px; }
-    .dot { width: 6px; height: 6px; background: #a3a9b5; border-radius: 50%; animation: blink 1.2s infinite; }
-    .dot:nth-child(2){ animation-delay: .15s; }
-    .dot:nth-child(3){ animation-delay: .3s; }
+    .t-dot { width: 6px; height: 6px; background: #a3a9b5; border-radius: 50%; animation: blink 1.2s infinite; }
+    .t-dot:nth-child(2){ animation-delay: .15s; }
+    .t-dot:nth-child(3){ animation-delay: .3s; }
     @keyframes blink { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
     .sim-footer { position: relative; margin-top: -70px; padding: 0 12px 14px; }
     .fake-input { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.04); color: #7c828f; padding: 12px; border-radius: 10px; display: flex; align-items: center; gap: 10px; font-size: 13px; }
@@ -70,6 +80,8 @@
     .pre-offer h3 { margin: 0 0 12px; font-size: 26px; line-height: 1.2; }
     .pre-offer h3 .red { color: var(--red); }
     .pre-offer p { margin: 0 0 16px; color: var(--muted); line-height: 1.6; }
+    .pre-offer ul { padding-left: 18px; color: #d8d8d8; }
+    .pre-offer li { margin-bottom: 8px; }
 
     .offer { background: var(--blue-panel); border: 1px solid #0b1c2d; border-radius: 14px; padding: 24px 18px 28px; color: #d8e7ff; box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
     .offer h4 { margin: 0 0 10px; font-size: 22px; }
@@ -86,6 +98,13 @@
     .price .old { color: #6b7d94; text-decoration: line-through; }
     .btn-offer { width: 100%; background: linear-gradient(90deg, #0ea5e9, #3b82f6); border: none; color: #fff; font-weight: 800; padding: 14px; border-radius: 10px; box-shadow: 0 12px 30px rgba(59,130,246,0.35); cursor: pointer; }
     .guarantee { margin: 12px 0 0; text-align: center; color: #8ea8c9; font-size: 13px; }
+
+    @media (max-width: 900px) {
+      .screen { padding: 18px 12px 60px; }
+      .sim-app { grid-template-columns: 1fr; }
+      .sim-servers, .sim-channels { display: none; }
+      .sim-topbar { position: sticky; top: 0; z-index: 5; }
+    }
   </style>
 </head>
 <body>
@@ -112,7 +131,7 @@
   <div class="wrap">
     <!-- Tela inicial -->
     <div class="screen active" id="screen-inicial">
-      <div class="inner">
+      <div class="inner" style="max-width: 500px;">
         <h1 class="hero-title">O LADO ESCURO<br><strong>DA INTERNET</strong></h1>
         <p class="hero-sub">Uma simulação realista para pais entenderem, de verdade, o que seus filhos enfrentam online.</p>
         <div class="card-dark">
@@ -130,55 +149,137 @@
       </div>
     </div>
 
-    <!-- Simulações -->
+    <!-- Simulação 1 -->
     <div class="screen" id="screen-sim1">
       <div class="inner">
-        <div class="sim-phone">
-          <div class="sim-top"><span class="pill"></span><span id="label-sim1"># fortfriends-geral</span><span class="icon-row">☰ # 👥</span></div>
-          <div class="sim-scroll" id="msgs-sim1"></div>
-          <div class="sim-footer">
-            <div class="progress"><button class="btn-next" id="next-sim1" disabled>Carregando...</button></div>
-            <div class="fake-input">+ Mensagem em fortfriends-geral <span class="fake-icons">🎁 🙂</span></div>
+        <div class="sim-app">
+          <div class="sim-servers">
+            <div class="server-dot">F</div>
+            <div class="divider"></div>
+            <div class="server-icon" title="FortFriends">🎮</div>
+            <div class="server-icon" title="Amigos">🔒</div>
+            <div class="server-icon" title="Alertas">⚠️</div>
           </div>
+          <div class="sim-channels">
+            <div class="title">FortFriends Brasil ▾</div>
+            <div class="title" style="color:#9ea5b5; margin-top:4px;">CANAIS DE TEXTO</div>
+            <div class="channel-item active"># fortfriends-geral</div>
+            <div class="channel-item"># amigos-especiais</div>
+            <div class="channel-item"># conversas-privadas</div>
+            <div class="title" style="color:#9ea5b5;">CANAIS DE VOZ</div>
+            <div class="channel-item">🔈 Call Geral</div>
+            <div class="channel-item">🎧 AFK</div>
+          </div>
+          <div class="sim-main">
+            <div class="sim-topbar">
+              <span style="font-weight:800;"># fortfriends-geral</span>
+              <span class="topic">Servidor público de Fortnite Brasil</span>
+              <div style="margin-left:auto; display:flex; align-items:center; gap:10px; color:#9ea5b5; font-size:13px;">
+                <span>👥</span><span class="dot"></span><span>12 online</span>
+              </div>
+            </div>
+            <div class="sim-chat" id="msgs-sim1"></div>
+          </div>
+        </div>
+        <div class="sim-footer" style="padding: 12px 0 0;">
+          <div class="progress"><button class="btn-next" id="next-sim1" disabled>Carregando...</button></div>
+          <div class="fake-input">+ Mensagem em fortfriends-geral <span class="fake-icons">🎁 🙂</span></div>
         </div>
       </div>
     </div>
 
+    <!-- Simulação 2 -->
     <div class="screen" id="screen-sim2">
       <div class="inner">
-        <div class="sim-phone">
-          <div class="sim-top"><span class="pill"></span><span id="label-sim2"># amigos-especiais</span><span class="icon-row">☰ # 👥</span></div>
-          <div class="sim-scroll" id="msgs-sim2"></div>
-          <div class="sim-footer">
-            <div class="progress"><button class="btn-next" id="next-sim2" disabled>Carregando...</button></div>
-            <div class="fake-input">+ Mensagem em amigos-especiais <span class="fake-icons">🎁 🙂</span></div>
+        <div class="sim-app">
+          <div class="sim-servers">
+            <div class="server-dot">F</div>
+            <div class="divider"></div>
+            <div class="server-icon" title="FortFriends">🎮</div>
+            <div class="server-icon" title="Amigos">🔒</div>
+            <div class="server-icon" title="Alertas">⚠️</div>
           </div>
+          <div class="sim-channels">
+            <div class="title">FortFriends Brasil ▾</div>
+            <div class="title" style="color:#9ea5b5; margin-top:4px;">CANAIS DE TEXTO</div>
+            <div class="channel-item"># fortfriends-geral</div>
+            <div class="channel-item active"># amigos-especiais</div>
+            <div class="channel-item"># conversas-privadas</div>
+            <div class="title" style="color:#9ea5b5;">CANAIS DE VOZ</div>
+            <div class="channel-item">🔈 Call Geral</div>
+            <div class="channel-item">🎧 AFK</div>
+          </div>
+          <div class="sim-main">
+            <div class="sim-topbar">
+              <span style="font-weight:800;"># amigos-especiais</span>
+              <span class="topic">Grupo privado (6 membros)</span>
+              <div style="margin-left:auto; display:flex; align-items:center; gap:10px; color:#9ea5b5; font-size:13px;">
+                <span>👥</span><span class="dot"></span><span>6 online</span>
+              </div>
+            </div>
+            <div class="sim-chat" id="msgs-sim2"></div>
+          </div>
+        </div>
+        <div class="sim-footer" style="padding: 12px 0 0;">
+          <div class="progress"><button class="btn-next" id="next-sim2" disabled>Carregando...</button></div>
+          <div class="fake-input">+ Mensagem em amigos-especiais <span class="fake-icons">🎁 🙂</span></div>
         </div>
       </div>
     </div>
 
+    <!-- Simulação 3 -->
     <div class="screen" id="screen-sim3">
       <div class="inner">
-        <div class="sim-phone">
-          <div class="sim-top"><span class="pill"></span><span id="label-sim3"># conversas-privadas</span><span class="icon-row">☰ # 👥</span></div>
-          <div class="sim-scroll" id="msgs-sim3"></div>
-          <div class="sim-footer">
-            <div class="progress"><button class="btn-next" id="next-sim3" disabled>Carregando...</button></div>
-            <div class="fake-input">+ Mensagem em conversas-privadas <span class="fake-icons">🎁 🙂</span></div>
+        <div class="sim-app">
+          <div class="sim-servers">
+            <div class="server-dot">F</div>
+            <div class="divider"></div>
+            <div class="server-icon" title="FortFriends">🎮</div>
+            <div class="server-icon" title="Amigos">🔒</div>
+            <div class="server-icon" title="Alertas">⚠️</div>
           </div>
+          <div class="sim-channels">
+            <div class="title">FortFriends Brasil ▾</div>
+            <div class="title" style="color:#9ea5b5; margin-top:4px;">CANAIS DE TEXTO</div>
+            <div class="channel-item"># fortfriends-geral</div>
+            <div class="channel-item"># amigos-especiais</div>
+            <div class="channel-item active"># conversas-privadas</div>
+            <div class="title" style="color:#9ea5b5;">CANAIS DE VOZ</div>
+            <div class="channel-item">🔈 Call Geral</div>
+            <div class="channel-item">🎧 AFK</div>
+          </div>
+          <div class="sim-main">
+            <div class="sim-topbar">
+              <span style="font-weight:800;"># conversas-privadas</span>
+              <span class="topic">Chat direto</span>
+              <div style="margin-left:auto; display:flex; align-items:center; gap:10px; color:#9ea5b5; font-size:13px;">
+                <span>👥</span><span class="dot"></span><span>2 online</span>
+              </div>
+            </div>
+            <div class="sim-chat" id="msgs-sim3"></div>
+          </div>
+        </div>
+        <div class="sim-footer" style="padding: 12px 0 0;">
+          <div class="progress"><button class="btn-next" id="next-sim3" disabled>Carregando...</button></div>
+          <div class="fake-input">+ Mensagem em conversas-privadas <span class="fake-icons">🎁 🙂</span></div>
         </div>
       </div>
     </div>
 
     <!-- Pré-offer -->
     <div class="screen" id="screen-pre">
-      <div class="inner">
+      <div class="inner" style="max-width: 520px;">
         <div class="pre-offer">
           <h3>Esse ambiente é <span class="red">falso.</span></h3>
           <p>Mas situações idênticas acontecem todos os dias com milhares de crianças brasileiras.</p>
           <h4 style="margin:12px 0 8px; font-size:20px;">O que você pode fazer agora?</h4>
           <p>Conhecer os perigos é apenas o primeiro passo. Veja como proteger seus filhos efetivamente.</p>
-          <p style="color:#d8d8d8; margin: 10px 0 0;">Prepare as configurações, converse sem quebrar a confiança e tenha um plano claro para denunciar e agir.</p>
+          <ul>
+            <li>Ensine seu filho a reconhecer abordagens suspeitas (pedidos de foto, idade, conversas privadas).</li>
+            <li>Ative controles parentais e limite conversas com desconhecidos em jogos e apps.</li>
+            <li>Estabeleça regras claras de tempo de tela e canais de denúncia seguros.</li>
+            <li>Mantenha diálogo aberto e sem julgamentos para que ele avise quando algo estranho acontecer.</li>
+          </ul>
         </div>
         <button class="cta-primary" id="btn-go-offer">Ver Oferta</button>
       </div>
@@ -186,7 +287,7 @@
 
     <!-- Offer -->
     <div class="screen" id="screen-offer">
-      <div class="inner">
+      <div class="inner" style="max-width: 520px;">
         <div class="offer">
           <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px; color:#7dd3fc; font-weight:700;">🛡️ Proteja Seu Filho Agora</div>
           <h4>Proteja Seu Filho Agora</h4>
@@ -215,26 +316,15 @@
     const screens = ['screen-inicial','screen-sim1','screen-sim2','screen-sim3','screen-pre','screen-offer'];
     const messagesData = {
       'screen-sim1': {
-        channel:'# fortfriends-geral',
         target:'msgs-sim1',
         btn:'next-sim1',
         list:[
           {u:'D4rkWolf13', t:'14:23', msg:'fala galera', avatar:'wolf'},
           {u:'D4rkWolf13', t:'14:23', msg:'bora uma ranked??', avatar:'wolf'},
-          {u:'SweetAngel', t:'14:24', msg:'oiiii', avatar:'yumi'},
-          {u:'SweetAngel', t:'14:24', msg:'bora simm, vou ligar mic', avatar:'yumi'},
-          {u:'ProKillerX', t:'14:24', msg:'kkkkkk', avatar:'wolf'},
-          {u:'ProKillerX', t:'14:24', msg:'vcs são mt ruim kkkkk perderam ontem feio', avatar:'wolf', alert:'Bullying e linguagem tóxica são comuns em chats de jogos'},
-          {u:'YumiKitty', t:'14:24', msg:'pra de ser chato', avatar:'yumi'},
-          {u:'M4st3rHelp', t:'14:25', msg:'eae pessoal td bem?\nalguém aí é novo no jogo? posso ajudar com dicas', avatar:'m4', alert:'Adultos frequentemente se apresentam como "jogadores experientes" querendo ajudar'},
-          {u:'YumiKitty', t:'14:25', msg:'eu sou nova sim!\ntenho 11 anos e tô aprendendo ainda', avatar:'yumi'},
-          {u:'D4rkWolf13', t:'14:26', msg:'suave, todo mundo começa em algum lugar né', avatar:'wolf', reaction:'👍 1'},
-          {u:'M4st3rHelp', t:'14:26', msg:'@YumiKitty legal! vem no privado q eu te ensino uns macetes top', avatar:'m4', alert:'ALERTA: Tentativa de isolar a criança em conversa privada'},
-          {u:'M4st3rHelp', t:'14:26', msg:'tenho uns truques q vão te deixar nível pro rapidão', avatar:'m4', alert:'Uso de promessas tentadoras para ganhar confiança'}
+          {typing:true, u:'SweetAngel', avatar:'yumi'}
         ]
       },
       'screen-sim2': {
-        channel:'# amigos-especiais',
         target:'msgs-sim2',
         btn:'next-sim2',
         list:[
@@ -249,7 +339,6 @@
         ]
       },
       'screen-sim3': {
-        channel:'# conversas-privadas',
         target:'msgs-sim3',
         btn:'next-sim3',
         list:[
@@ -286,13 +375,13 @@
       wrap.scrollTop = wrap.scrollHeight;
     }
 
-    function showTyping(targetId, name){
+    function showTyping(targetId, m){
       const wrap = document.getElementById(targetId);
       const row = document.createElement('div');
       row.className = 'msg';
-      row.innerHTML = `<div class="avatar" style="background:${avatarStyle('yumi')}">${name.slice(0,2).toUpperCase()}</div>
+      row.innerHTML = `<div class="avatar" style="background:${avatarStyle(m.avatar || 'yumi')}">${m.u.slice(0,2).toUpperCase()}</div>
         <div>
-          <div class="bubble" style="background:#2f3136; color:#a3a9b5;">${name} <span class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+          <div class="bubble" style="background:#2f3136; color:#a3a9b5;">${m.u} <span class="typing"><span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span></span> <span style="margin-left:6px;">está digitando...</span></div>
         </div>`;
       wrap.appendChild(row);
       wrap.scrollTop = wrap.scrollHeight;
@@ -311,10 +400,12 @@
       btn.disabled = true;
       btn.textContent = 'Carregando...';
       for(const m of list){
-        const typingRow = showTyping(target, m.u);
-        await delay(600);
+        const typingRow = showTyping(target, m);
+        await delay(700);
         typingRow.remove();
-        appendMessage(target, m);
+        if(m.msg){
+          appendMessage(target, m);
+        }
         await delay(Math.min(1600, 500 + (m.msg ? m.msg.length * 18 : 500)));
       }
       btn.disabled = false;
