@@ -25,7 +25,7 @@
     * { box-sizing: border-box; }
     body { margin:0; font-family: "Inter", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
     a { color: inherit; text-decoration: none; }
-    .wrap { width: 100%; max-width: none; margin: 0 auto; padding: 0; min-height: 100vh; }
+    .wrap { width: 100%; margin: 0 auto; padding: 0; min-height: 100vh; }
     .screen { display: none; padding: 24px 18px 64px; min-height: 100vh; }
     .screen.active { display: block; }
     .inner { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
@@ -330,10 +330,13 @@
         list:[
           {u:'M4st3rHelp', t:'15:12', msg:'e aí, conseguiu fazer aquelas missões q te falei?', avatar:'m4'},
           {u:'YumiKitty', t:'15:12', msg:'conseguiii\nvlw msm pela ajuda', avatar:'yumi'},
-          {u:'XxCuteLoverxX', t:'15:13', msg:'vc parece ser daora... qnts anos vc tem?', avatar:'love', alert:'Pergunta sobre idade é frequentemente o primeiro passo do aliciador'},
-          {u:'M4st3rHelp', t:'15:14', msg:'manda uma foto sua pra gnt te conhecer melhor', avatar:'m4', alert:'Solicitação de foto em ambiente privado'},
+          {u:'XxCuteLoverxX', t:'15:13', msg:'oiii gente\nvc parece ser daora... qnts anos vc tem?', avatar:'love', alert:'Pergunta sobre idade é frequentemente o primeiro passo do aliciador'},
+          {u:'YumiKitty', t:'15:13', msg:'11 pq?', avatar:'yumi'},
+          {u:'M4st3rHelp', t:'15:14', msg:'manda uma foto sua pra gnt te conhecer melhor', avatar:'m4', alert:'PERIGO: Solicitação de foto em ambiente privado é sinal de alerta vermelho'},
           {u:'M4st3rHelp', t:'15:14', msg:'todo mundo aqui já mandou a deles', avatar:'m4', alert:'Pressão social para normalizar o comportamento perigoso'},
-          {u:'XxCuteLoverxX', t:'15:15', msg:'tem skns gratis pra todo mundo → bit.ly/sk1ns-gr4t1s', avatar:'love', alert:'Links encurtados podem levar a phishing/malware'},
+          {u:'XxCuteLoverxX', t:'15:14', msg:'eh vdd, todo mundo manda aqui', avatar:'love'},
+          {u:'D4rkWolf13', t:'15:15', msg:'cuidado com o povo daqui ein kkkkk', avatar:'wolf'},
+          {u:'XxCuteLoverxX', t:'15:15', msg:'olha só, achei um site mt bom aki\ntem skns gratis pra todo mundo → bit.ly/sk1ns-gr4t1s', avatar:'love', alert:'Links encurtados podem levar a sites de phishing ou malware'},
           {u:'M4st3rHelp', t:'15:16', msg:'se vc me passar seu login e senha eu coloco umas skins raras pra vc', avatar:'m4', alert:'Tentativa de roubo de conta disfarçada de favor'},
           {u:'M4st3rHelp', t:'15:16', msg:'faço isso pros meus amigos sempre, confia', avatar:'m4', alert:'Manipulação para construir falsa confiança'}
         ]
@@ -403,9 +406,7 @@
         const typingRow = showTyping(target, m);
         await delay(700);
         typingRow.remove();
-        if(m.msg){
-          appendMessage(target, m);
-        }
+        if(m.msg){ appendMessage(target, m); }
         await delay(Math.min(1600, 500 + (m.msg ? m.msg.length * 18 : 500)));
       }
       btn.disabled = false;
