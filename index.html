@@ -178,6 +178,7 @@
           <p>Mas situações idênticas acontecem todos os dias com milhares de crianças brasileiras.</p>
           <h4 style="margin:12px 0 8px; font-size:20px;">O que você pode fazer agora?</h4>
           <p>Conhecer os perigos é apenas o primeiro passo. Veja como proteger seus filhos efetivamente.</p>
+          <p style="color:#d8d8d8; margin: 10px 0 0;">Prepare as configurações, converse sem quebrar a confiança e tenha um plano claro para denunciar e agir.</p>
         </div>
         <button class="cta-primary" id="btn-go-offer">Ver Oferta</button>
       </div>
@@ -202,7 +203,7 @@
               <li><span class="check">✓</span> Suporte por 7 dias com especialistas</li>
             </ul>
             <div class="price"><span class="now">R$ 19,90</span><span class="old">R$ 97</span></div>
-            <button class="btn-offer" onclick="window.location.href='https://pay.lirapaybr.com/kpXiFYQo'">Garantir Acesso Agora</button>
+            <button class="btn-offer" onclick="window.location.href='https://pay.kirvano.com/efcc738d-0060-41b7-8dbf-7b7d6e3bd9b3'">Garantir Acesso Agora</button>
             <div class="guarantee">✓ Acesso imediato • ✓ Garantia de 7 dias • ✓ Pagamento seguro</div>
           </div>
         </div>
@@ -220,7 +221,11 @@
         list:[
           {u:'D4rkWolf13', t:'14:23', msg:'fala galera', avatar:'wolf'},
           {u:'D4rkWolf13', t:'14:23', msg:'bora uma ranked??', avatar:'wolf'},
-          {typing:true, u:'SweetAngel'},
+          {u:'SweetAngel', t:'14:24', msg:'oiiii', avatar:'yumi'},
+          {u:'SweetAngel', t:'14:24', msg:'bora simm, vou ligar mic', avatar:'yumi'},
+          {u:'ProKillerX', t:'14:24', msg:'kkkkkk', avatar:'wolf'},
+          {u:'ProKillerX', t:'14:24', msg:'vcs são mt ruim kkkkk perderam ontem feio', avatar:'wolf', alert:'Bullying e linguagem tóxica são comuns em chats de jogos'},
+          {u:'YumiKitty', t:'14:24', msg:'pra de ser chato', avatar:'yumi'},
           {u:'M4st3rHelp', t:'14:25', msg:'eae pessoal td bem?\nalguém aí é novo no jogo? posso ajudar com dicas', avatar:'m4', alert:'Adultos frequentemente se apresentam como "jogadores experientes" querendo ajudar'},
           {u:'YumiKitty', t:'14:25', msg:'eu sou nova sim!\ntenho 11 anos e tô aprendendo ainda', avatar:'yumi'},
           {u:'D4rkWolf13', t:'14:26', msg:'suave, todo mundo começa em algum lugar né', avatar:'wolf', reaction:'👍 1'},
@@ -269,15 +274,6 @@
       const wrap = document.getElementById(targetId);
       const row = document.createElement('div');
       row.className = 'msg';
-      if(m.typing){
-        row.innerHTML = `<div class="avatar" style="background:${avatarStyle('yumi')}">SA</div>
-          <div>
-            <div class="bubble" style="background:#2f3136; color:#a3a9b5;">SweetAngel <span class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
-          </div>`;
-        wrap.appendChild(row);
-        wrap.scrollTop = wrap.scrollHeight;
-        return;
-      }
       row.innerHTML = `
         <div class="avatar" style="background:${avatarStyle(m.avatar)}">${m.u.slice(0,2).toUpperCase()}</div>
         <div style="flex:1;">
@@ -290,7 +286,22 @@
       wrap.scrollTop = wrap.scrollHeight;
     }
 
-    function playSim(screenId, nextLabel){
+    function showTyping(targetId, name){
+      const wrap = document.getElementById(targetId);
+      const row = document.createElement('div');
+      row.className = 'msg';
+      row.innerHTML = `<div class="avatar" style="background:${avatarStyle('yumi')}">${name.slice(0,2).toUpperCase()}</div>
+        <div>
+          <div class="bubble" style="background:#2f3136; color:#a3a9b5;">${name} <span class="typing"><span class="dot"></span><span class="dot"></span><span class="dot"></span></span></div>
+        </div>`;
+      wrap.appendChild(row);
+      wrap.scrollTop = wrap.scrollHeight;
+      return row;
+    }
+
+    function delay(ms){ return new Promise(res=>setTimeout(res, ms)); }
+
+    async function playSim(screenId, nextLabel){
       const data = messagesData[screenId];
       const target = data.target;
       const btn = document.getElementById(data.btn);
@@ -299,16 +310,15 @@
       wrap.innerHTML = '';
       btn.disabled = true;
       btn.textContent = 'Carregando...';
-      let i = 0;
-      const timer = setInterval(()=>{
-        appendMessage(target, list[i]);
-        i++;
-        if(i >= list.length){
-          clearInterval(timer);
-          btn.disabled = false;
-          btn.textContent = nextLabel;
-        }
-      }, 1100);
+      for(const m of list){
+        const typingRow = showTyping(target, m.u);
+        await delay(600);
+        typingRow.remove();
+        appendMessage(target, m);
+        await delay(Math.min(1600, 500 + (m.msg ? m.msg.length * 18 : 500)));
+      }
+      btn.disabled = false;
+      btn.textContent = nextLabel;
     }
 
     function showScreen(id){
