@@ -16,6 +16,33 @@
   <!-- Cor da barra do navegador mobile -->
   <meta name="theme-color" content="#0b0b0f">
 
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1568472000997088');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1568472000997088&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
+  <!-- UTMify -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
+
   <style>
     /* Critical CSS - Renderiza imediatamente */
     html, body { margin:0; padding:0; background:#0b0b0f; }
@@ -428,7 +455,7 @@
           <li>Suporte por 7 dias com especialistas</li>
         </ul>
         <div class="price"><span class="now">R$ 19,90</span><span class="old">R$ 97</span></div>
-        <button class="btn-offer" onclick="window.location.href='https://pay.kirvano.com/efcc738d-0060-41b7-8dbf-7b7d6e3bd9b3'">Garantir Acesso Agora</button>
+        <button class="btn-offer" onclick="fbq('track', 'InitiateCheckout'); window.location.href='https://pay.kirvano.com/efcc738d-0060-41b7-8dbf-7b7d6e3bd9b3'">Garantir Acesso Agora</button>
         <div style="text-align:center; color:#8ea8c9; font-size:13px; margin-top:10px;">✓ Acesso imediato • ✓ Garantia de 7 dias • ✓ Pagamento seguro</div>
       </div>
     </div>
