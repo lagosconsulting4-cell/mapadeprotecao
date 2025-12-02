@@ -3,8 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>FortFriends - Simulação</title>
+  <title>O Lado Escuro da Internet - Simulação para Pais</title>
+  <meta name="description" content="Uma simulação realista para pais entenderem o que seus filhos enfrentam online. Veja como predadores agem em chats de jogos.">
+
+  <!-- Preconnect para performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonte Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Cor da barra do navegador mobile -->
+  <meta name="theme-color" content="#0b0b0f">
+
   <style>
+    /* Critical CSS - Renderiza imediatamente */
+    html, body { margin:0; padding:0; background:#0b0b0f; }
+
     :root {
       --bg: #2b2d31;
       --panel: #1e1f22;
@@ -137,6 +152,10 @@
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
+  <!-- Loading state enquanto JS carrega -->
+  <noscript>
+    <style>.screen{display:block!important;position:relative!important;height:auto!important;}</style>
+  </noscript>
 
   <!-- TELA 1: Hero -->
   <section class="screen active" id="screen-hero">
