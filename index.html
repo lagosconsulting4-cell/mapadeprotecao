@@ -5,23 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>O Lado Escuro da Internet - Simulação para Pais</title>
   <meta name="description" content="Uma simulação realista para pais entenderem o que seus filhos enfrentam online. Veja como predadores agem em chats de jogos.">
-
   <!-- Preconnect para performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://capig.stape.pm">
   <link rel="preconnect" href="https://cdn.utmify.com.br">
-
-  <!-- Fonte Inter com swap para não bloquear renderização -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
-
+  <!-- Fonte Inter carregada de forma nao bloqueante -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap"></noscript>
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/icon.svg">
   <link rel="apple-touch-icon" href="/apple-icon.png">
-
   <!-- Cor da barra do navegador mobile -->
   <meta name="theme-color" content="#0b0b0f">
-
   <!-- Meta Pixel Code com CAPI Gateway (Stape) -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -31,15 +27,14 @@
     n.queue=[];t=b.createElement(e);t.async=!0;
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://capig.stape.pm/fbevents.js');
+    'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '1568472000997088');
     fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
-    src="https://capig.stape.pm/tr?id=1568472000997088&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=1568472000997088&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Meta Pixel Code -->
-
   <style>
     :root {
       --bg: #2b2d31;
@@ -58,7 +53,6 @@
     * { box-sizing: border-box; }
     html, body { margin:0; padding:0; overflow: hidden; height: 100%; }
     body { font-family: "Inter", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
-
     /* Sistema de telas independentes */
     .screen {
       display: none;
@@ -77,7 +71,6 @@
       overflow-y: auto;
       flex: 1;
     }
-
     /* Hero */
     .hero { flex:1; padding: 48px 16px 32px; background: linear-gradient(135deg,#0b0b0f,#1a0d0d 55%,#0b0b0f); color:#fff; overflow-y:auto; }
     .hero-inner { max-width: 1100px; margin:0 auto; display:grid; grid-template-columns: 1.05fr 1fr; gap:32px; align-items:center; }
@@ -86,33 +79,29 @@
     .hero h1 span { color: var(--hero-red); display:block; }
     .hero p { margin:0 0 16px; color:#cfd3de; font-size:17px; line-height:1.5; }
     .hero .card { background: linear-gradient(135deg,#170b0b,#13090c); border:1px solid #2a1717; border-radius:10px; padding:18px; box-shadow:0 12px 30px rgba(0,0,0,0.35); margin-bottom:18px; }
-    .hero .card h3 { margin:0 0 6px; font-size:18px; }
+    .hero .card h2 { margin:0 0 6px; font-size:18px; }
     .hero .card .punch { color: var(--hero-red); font-weight:800; font-size:20px; }
     .hero ul { list-style:none; padding:0; margin:0 0 14px; color:#d8dce6; line-height:1.5; }
     .hero li { margin-bottom:8px; }
     .hero li::before { content:"→"; color: var(--hero-red); margin-right:8px; font-weight:900; }
     .hero-alert { background: linear-gradient(90deg, rgba(240,193,75,0.18), rgba(240,193,75,0.08)); border-left:3px solid var(--hero-yellow); padding:12px 14px; border-radius:6px; color:#f3d584; font-size:13px; }
     .cta-primary { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 20px; border-radius:10px; background: var(--hero-red); color:#fff; font-weight:800; font-size:16px; letter-spacing:0.2px; border:none; cursor:pointer; box-shadow:0 10px 30px rgba(227,32,32,0.35); }
-
     /* Simulação Discord */
     .layout { display: grid; grid-template-columns: 72px 240px 1fr; height: 100%; overflow:hidden; }
     .servers { background: #1a1b21; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 12px 8px; }
     .server { width: 48px; height: 48px; border-radius: 16px; background: #5865f2; color:#fff; display:grid; place-items:center; font-weight:800; cursor:pointer; }
     .divider { width: 60%; height: 2px; background: #2f3136; border-radius: 10px; }
     .server-icon { width: 48px; height: 48px; border-radius: 16px; background: #2f3136; display:grid; place-items:center; color:#8ea1e1; font-size:22px; cursor:pointer; }
-
     .channels { background: var(--sidebar); color: var(--text); border-right: 1px solid #1f2026; display:flex; flex-direction:column; }
     .header { padding: 12px; font-weight: 700; display:flex; align-items:center; gap:6px; }
     .section { padding: 8px 12px 4px; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .05em; }
     .channel { padding: 8px 12px; margin: 0 8px 4px; border-radius: 8px; display:flex; align-items:center; gap:8px; color: #9ea5b5; cursor:pointer; }
     .channel.active { background:#3a3d45; color:#fff; }
-
     .main { background: #313338; display:flex; flex-direction:column; height:100%; min-height:0; }
     .topbar { background:#2f3136; border-bottom:1px solid #1f2026; padding:10px 14px; display:flex; align-items:center; gap:12px; color:#e5e7eb; flex-shrink:0; }
     .topbar .topic { color: var(--muted); font-size: 13px; }
     .topbar .online { margin-left:auto; display:flex; align-items:center; gap:8px; color: var(--muted); }
     .dot { width:8px; height:8px; border-radius:50%; background:#23a55a; }
-
     .chat { flex:1; overflow-y:auto; padding:16px 18px 20px; min-height:0; scroll-behavior:smooth; }
     .msg { display:flex; gap:10px; margin-bottom:14px; }
     .avatar { width:40px; height:40px; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:800; font-size:12px; }
@@ -125,11 +114,9 @@
     .t-dot { width:6px; height:6px; background: var(--muted); border-radius:50%; animation: blink 1.2s infinite; }
     .t-dot:nth-child(2){ animation-delay:.15s; } .t-dot:nth-child(3){ animation-delay:.3s; }
     @keyframes blink { 0%,60%,100% { opacity:.3;} 30% { opacity:1;} }
-
     .footer { background: #2f3136; border-top:1px solid #1f2026; padding: 12px 16px; display:flex; justify-content:center; flex-shrink:0; }
     .next { background:#198754; color:#fff; border:none; padding:10px 18px; border-radius:8px; font-weight:700; cursor:pointer; }
     .next:disabled { opacity:0.6; cursor:not-allowed; }
-
     /* Pré-oferta */
     .pre-offer { flex:1; padding: 36px 18px 48px; background: linear-gradient(180deg, #0c0c10 0%, #0f1318 50%, #0c0c10 100%); color:#f5f6f7; overflow-y:auto; }
     .pre-offer .container { max-width:900px; margin:0 auto; }
@@ -150,7 +137,6 @@
     .pre-offer .cta-section h3 { margin:0 0 16px; font-size:24px; color:#fff; }
     .cta-pre { display:inline-flex; align-items:center; justify-content:center; padding:16px 32px; border-radius:12px; background: linear-gradient(135deg, #ef4444, #dc2626); color:#fff; font-weight:800; font-size:17px; border:none; cursor:pointer; box-shadow:0 12px 30px rgba(239,68,68,0.4); transition: transform 0.2s, box-shadow 0.2s; }
     .cta-pre:hover { transform:translateY(-2px); box-shadow:0 16px 40px rgba(239,68,68,0.5); }
-
     /* Oferta */
     .offer { flex:1; padding: 32px 18px 48px; background: var(--offer-blue); color:#d8e7ff; overflow-y:auto; display:flex; align-items:center; justify-content:center; }
     .offer-card { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:20px 18px; box-shadow:0 16px 40px rgba(0,0,0,0.45); max-width:520px; width:100%; }
@@ -161,7 +147,6 @@
     .price .now { font-size:26px; font-weight:800; color:#7dd3fc; }
     .price .old { color:#6b7d94; text-decoration: line-through; }
     .btn-offer { width:100%; background: linear-gradient(90deg,#0ea5e9,#3b82f6); border:none; color:#fff; font-weight:800; padding:14px; border-radius:10px; box-shadow:0 12px 30px rgba(59,130,246,0.35); cursor:pointer; }
-
     @media (max-width: 900px){
       .layout { grid-template-columns: 1fr; }
       .servers, .channels { display:none; }
@@ -177,7 +162,6 @@
   <noscript>
     <style>.screen{display:block!important;position:relative!important;height:auto!important;}</style>
   </noscript>
-
   <!-- TELA 1: Hero -->
   <section class="screen active" id="screen-hero">
     <div class="hero">
@@ -186,7 +170,7 @@
           <h1>O LADO ESCURO<br><span>DA INTERNET</span></h1>
           <p>Uma simulação realista para pais entenderem, de verdade, o que seus filhos enfrentam online.</p>
           <div class="card">
-            <h3>Você acha que sabe o que seu filho vê na internet?</h3>
+            <h2>VocÃª acha que sabe o que seu filho vÃª na internet?</h2>
             <div class="punch">Você não sabe.</div>
           </div>
           <div class="hero-alert"><strong>AVISO:</strong> Esta simulação não contém imagens explícitas, mas apresenta contextos reais que podem ser perturbadores.</div>
@@ -209,7 +193,6 @@
       </div>
     </div>
   </section>
-
   <!-- TELA 2: Simulação Fase 1 -->
   <section class="screen" id="screen-sim1">
     <div class="layout">
@@ -248,7 +231,6 @@
       </div>
     </div>
   </section>
-
   <!-- TELA 3: Simulação Fase 2 -->
   <section class="screen" id="screen-sim2">
     <div class="layout">
@@ -287,7 +269,6 @@
       </div>
     </div>
   </section>
-
   <!-- TELA 4: Simulação Fase 3 -->
   <section class="screen" id="screen-sim3">
     <div class="layout">
@@ -326,7 +307,6 @@
       </div>
     </div>
   </section>
-
   <!-- TELA 5: Pré-Oferta -->
   <section class="screen" id="screen-preoffer">
     <div class="pre-offer">
@@ -336,7 +316,6 @@
           <h2>Esse ambiente é falso.</h2>
           <p>Mas situações idênticas acontecem todos os dias com milhares de crianças brasileiras.</p>
         </div>
-
         <!-- Grid de cards principais -->
         <div class="grid-2">
           <!-- Perigos Online -->
@@ -355,7 +334,6 @@
               <li><span class="bullet" style="background:#ef4444;"></span>Golpes e roubo de contas</li>
             </ul>
           </div>
-
           <!-- Sinais de Alerta -->
           <div class="info-card" style="border-left:3px solid #f59e0b;">
             <div class="section-title">
@@ -372,7 +350,6 @@
               <li><span class="bullet" style="background:#f59e0b;"></span>Novos "amigos" online desconhecidos</li>
             </ul>
           </div>
-
           <!-- Como Conversar -->
           <div class="info-card" style="border-left:3px solid #22c55e;">
             <div class="section-title">
@@ -389,7 +366,6 @@
               <li><span class="bullet" style="background:#22c55e;"></span>Seja um porto seguro para relatos</li>
             </ul>
           </div>
-
           <!-- Configurações de Segurança -->
           <div class="info-card" style="border-left:3px solid #3b82f6;">
             <div class="section-title">
@@ -407,7 +383,6 @@
             </ul>
           </div>
         </div>
-
         <!-- Card de denúncia -->
         <div class="info-card" style="border-left:3px solid #8b5cf6; margin-bottom:0;">
           <div class="section-title">
@@ -423,7 +398,6 @@
             <li><span class="bullet" style="background:#8b5cf6;"></span><strong>Disque 100:</strong> Direitos Humanos (gratuito)</li>
           </ul>
         </div>
-
         <!-- CTA Final -->
         <div class="cta-section">
           <h3>Pronto para proteger sua família?</h3>
@@ -432,7 +406,6 @@
       </div>
     </div>
   </section>
-
   <!-- TELA 6: Oferta -->
   <section class="screen" id="screen-offer">
     <div class="offer">
@@ -454,16 +427,13 @@
       </div>
     </div>
   </section>
-
   <script>
     // Sistema de telas
     const screens = ['hero', 'sim1', 'sim2', 'sim3', 'preoffer', 'offer'];
-
     function showScreen(screenId) {
       document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
       document.getElementById('screen-' + screenId).classList.add('active');
     }
-
     // Dados das fases
     const phases = [
       {
@@ -515,12 +485,10 @@
         ]
       }
     ];
-
     // Funções de chat
     function avatarStyle(color){
       return `style="background:${color};"`;
     }
-
     function addTyping(chat, entry){
       const row = document.createElement('div');
       row.className = 'msg';
@@ -535,7 +503,6 @@
       chat.scrollTop = chat.scrollHeight;
       return row;
     }
-
     function addMessage(chat, entry){
       const row = document.createElement('div');
       row.className = 'msg';
@@ -549,15 +516,12 @@
       chat.appendChild(row);
       chat.scrollTop = chat.scrollHeight;
     }
-
     async function playPhase(phaseIdx, chatId, btnId, nextScreenId){
       const chat = document.getElementById(chatId);
       const btn = document.getElementById(btnId);
       const phase = phases[phaseIdx];
-
       chat.innerHTML = '';
       btn.disabled = true;
-
       for(const item of phase.list){
         const tRow = addTyping(chat, item);
         await new Promise(r => setTimeout(r, 600));
@@ -565,42 +529,35 @@
         addMessage(chat, item);
         await new Promise(r => setTimeout(r, Math.min(1600, 500 + (item.msg ? item.msg.length * 18 : 600))));
       }
-
       btn.disabled = false;
       btn.onclick = () => showScreen(nextScreenId);
     }
-
     // Event listeners com Facebook Pixel
     document.getElementById('btn-start').addEventListener('click', () => {
       fbq('trackCustom', 'ClickButton', {button: 'iniciar_imersao'});
       showScreen('sim1');
       playPhase(0, 'chat1', 'next1', 'sim2');
     });
-
     document.getElementById('next1').addEventListener('click', () => {
       fbq('trackCustom', 'ClickButton', {button: 'proxima_fase_1'});
       showScreen('sim2');
       playPhase(1, 'chat2', 'next2', 'sim3');
     });
-
     document.getElementById('next2').addEventListener('click', () => {
       fbq('trackCustom', 'ClickButton', {button: 'proxima_fase_2'});
       showScreen('sim3');
       playPhase(2, 'chat3', 'next3', 'preoffer');
     });
-
     document.getElementById('next3').addEventListener('click', () => {
       fbq('trackCustom', 'ClickButton', {button: 'ver_conteudo_educativo'});
       showScreen('preoffer');
     });
-
     document.getElementById('btn-preoffer').addEventListener('click', () => {
       fbq('trackCustom', 'ClickButton', {button: 'ver_solucao_completa'});
       fbq('track', 'ViewContent', {content_name: 'Oferta Mapa de Protecao'});
       showScreen('offer');
     });
   </script>
-
   <!-- UTMify (carregado por último para não bloquear) -->
   <script
     src="https://cdn.utmify.com.br/scripts/utms/latest.js"
