@@ -9,9 +9,15 @@
   <!-- Preconnect para performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://capig.stape.pm">
+  <link rel="preconnect" href="https://cdn.utmify.com.br">
 
-  <!-- Fonte Inter -->
+  <!-- Fonte Inter com swap para não bloquear renderização -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="apple-touch-icon" href="/apple-icon.png">
 
   <!-- Cor da barra do navegador mobile -->
   <meta name="theme-color" content="#0b0b0f">
@@ -34,19 +40,7 @@
   /></noscript>
   <!-- End Meta Pixel Code -->
 
-  <!-- UTMify -->
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
-
   <style>
-    /* Critical CSS - Renderiza imediatamente */
-    html, body { margin:0; padding:0; background:#0b0b0f; }
-
     :root {
       --bg: #2b2d31;
       --panel: #1e1f22;
@@ -606,5 +600,14 @@
       showScreen('offer');
     });
   </script>
+
+  <!-- UTMify (carregado por último para não bloquear) -->
+  <script
+    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+    data-utmify-prevent-xcod-sck
+    data-utmify-prevent-subids
+    async
+    defer
+  ></script>
 </body>
 </html>
