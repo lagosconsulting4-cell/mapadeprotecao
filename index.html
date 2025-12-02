@@ -20,8 +20,30 @@
       --offer-blue: #0b1826;
     }
     * { box-sizing: border-box; }
-    body { margin:0; font-family: "Inter", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
-    .hero { padding: 48px 16px 32px; background: linear-gradient(135deg,#0b0b0f,#1a0d0d 55%,#0b0b0f); color:#fff; }
+    html, body { margin:0; padding:0; overflow: hidden; height: 100%; }
+    body { font-family: "Inter", system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); }
+
+    /* Sistema de telas independentes */
+    .screen {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+    .screen-scroll {
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    /* Hero */
+    .hero { flex:1; padding: 48px 16px 32px; background: linear-gradient(135deg,#0b0b0f,#1a0d0d 55%,#0b0b0f); color:#fff; overflow-y:auto; }
     .hero-inner { max-width: 1100px; margin:0 auto; display:grid; grid-template-columns: 1.05fr 1fr; gap:32px; align-items:center; }
     @media(max-width: 960px){ .hero-inner{ grid-template-columns:1fr; } }
     .hero h1 { margin:0 0 10px; font-size: clamp(32px,5vw,60px); line-height:0.95; text-transform: uppercase; letter-spacing:0.5px; }
@@ -33,9 +55,11 @@
     .hero ul { list-style:none; padding:0; margin:0 0 14px; color:#d8dce6; line-height:1.5; }
     .hero li { margin-bottom:8px; }
     .hero li::before { content:"→"; color: var(--hero-red); margin-right:8px; font-weight:900; }
-    .alert { background: linear-gradient(90deg, rgba(240,193,75,0.18), rgba(240,193,75,0.08)); border-left:3px solid var(--hero-yellow); padding:12px 14px; border-radius:6px; color:#f3d584; font-size:13px; }
+    .hero-alert { background: linear-gradient(90deg, rgba(240,193,75,0.18), rgba(240,193,75,0.08)); border-left:3px solid var(--hero-yellow); padding:12px 14px; border-radius:6px; color:#f3d584; font-size:13px; }
     .cta-primary { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 20px; border-radius:10px; background: var(--hero-red); color:#fff; font-weight:800; font-size:16px; letter-spacing:0.2px; border:none; cursor:pointer; box-shadow:0 10px 30px rgba(227,32,32,0.35); }
-    .layout { display: grid; grid-template-columns: 72px 240px 1fr; min-height: 100vh; }
+
+    /* Simulação Discord */
+    .layout { display: grid; grid-template-columns: 72px 240px 1fr; height: 100%; }
     .servers { background: #1a1b21; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 12px 8px; }
     .server { width: 48px; height: 48px; border-radius: 16px; background: #5865f2; color:#fff; display:grid; place-items:center; font-weight:800; cursor:pointer; }
     .divider { width: 60%; height: 2px; background: #2f3136; border-radius: 10px; }
@@ -47,13 +71,13 @@
     .channel { padding: 8px 12px; margin: 0 8px 4px; border-radius: 8px; display:flex; align-items:center; gap:8px; color: #9ea5b5; cursor:pointer; }
     .channel.active { background:#3a3d45; color:#fff; }
 
-    .main { background: #313338; display:flex; flex-direction:column; }
-    .topbar { background:#2f3136; border-bottom:1px solid #1f2026; padding:10px 14px; display:flex; align-items:center; gap:12px; color:#e5e7eb; }
+    .main { background: #313338; display:flex; flex-direction:column; height:100%; }
+    .topbar { background:#2f3136; border-bottom:1px solid #1f2026; padding:10px 14px; display:flex; align-items:center; gap:12px; color:#e5e7eb; flex-shrink:0; }
     .topbar .topic { color: var(--muted); font-size: 13px; }
     .topbar .online { margin-left:auto; display:flex; align-items:center; gap:8px; color: var(--muted); }
     .dot { width:8px; height:8px; border-radius:50%; background:#23a55a; }
 
-    .chat { flex:1; overflow-y:auto; padding:16px 18px 120px; }
+    .chat { flex:1; overflow-y:auto; padding:16px 18px 20px; }
     .msg { display:flex; gap:10px; margin-bottom:14px; }
     .avatar { width:40px; height:40px; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:800; font-size:12px; }
     .bubble { color:#e6e8f0; line-height:1.5; }
@@ -66,12 +90,13 @@
     .t-dot:nth-child(2){ animation-delay:.15s; } .t-dot:nth-child(3){ animation-delay:.3s; }
     @keyframes blink { 0%,60%,100% { opacity:.3;} 30% { opacity:1;} }
 
-    .footer { position: sticky; bottom:0; background: #2f3136; border-top:1px solid #1f2026; padding: 12px 16px; display:flex; justify-content:center; }
+    .footer { background: #2f3136; border-top:1px solid #1f2026; padding: 12px 16px; display:flex; justify-content:center; flex-shrink:0; }
     .next { background:#198754; color:#fff; border:none; padding:10px 18px; border-radius:8px; font-weight:700; cursor:pointer; }
     .next:disabled { opacity:0.6; cursor:not-allowed; }
 
-    .pre-offer { display:none; padding: 36px 18px 48px; background:#0c0c10; color:#f5f6f7; border-top:1px solid #15171c; }
-    .pre-offer .block { margin-bottom: 26px; }
+    /* Pré-oferta */
+    .pre-offer { flex:1; padding: 36px 18px 48px; background:#0c0c10; color:#f5f6f7; overflow-y:auto; }
+    .pre-offer .block { margin-bottom: 26px; max-width:800px; margin-left:auto; margin-right:auto; }
     .pre-offer h2 { margin: 0 0 10px; font-size: 32px; line-height: 1.2; color:#e8eaee; }
     .pre-offer h3 { margin: 14px 0 8px; font-size: 20px; }
     .pre-offer p { margin: 6px 0 10px; color:#cfd3de; line-height: 1.6; }
@@ -80,8 +105,9 @@
     .card-soft { background:#121216; border:1px solid #1f2026; border-radius:12px; padding:14px 16px; box-shadow:0 10px 30px rgba(0,0,0,0.25); }
     .cta-pre { display:inline-flex; align-items:center; justify-content:center; padding:14px 20px; border-radius:10px; background:#ef4444; color:#fff; font-weight:800; border:none; cursor:pointer; box-shadow:0 12px 30px rgba(239,68,68,0.35); }
 
-    .offer { display:none; padding: 32px 18px 48px; background: var(--offer-blue); color:#d8e7ff; border-top:1px solid #0f243a; }
-    .offer-card { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:20px 18px; box-shadow:0 16px 40px rgba(0,0,0,0.45); max-width:520px; margin:0 auto; }
+    /* Oferta */
+    .offer { flex:1; padding: 32px 18px 48px; background: var(--offer-blue); color:#d8e7ff; overflow-y:auto; display:flex; align-items:center; justify-content:center; }
+    .offer-card { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:14px; padding:20px 18px; box-shadow:0 16px 40px rgba(0,0,0,0.45); max-width:520px; width:100%; }
     .stat { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.06); padding:12px; border-radius:10px; text-align:center; margin:12px 0 18px; font-weight:700; color:#9bb3d4; }
     .kit-list { list-style:none; padding:0; margin:12px 0; color:#c8d9f2; display:grid; gap:8px; }
     .kit-list li::before { content:'✓'; color:#4ade80; margin-right:8px; font-weight:900; }
@@ -94,197 +120,282 @@
       .layout { grid-template-columns: 1fr; }
       .servers, .channels { display:none; }
       .topbar { position: sticky; top:0; z-index:5; }
-      .chat { padding:14px 14px 100px; }
+      .chat { padding:14px 14px 20px; }
     }
   </style>
 </head>
 <body>
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <h1>O LADO ESCURO<br><span>DA INTERNET</span></h1>
-        <p>Uma simulação realista para pais entenderem, de verdade, o que seus filhos enfrentam online.</p>
-        <div class="card">
-          <h3>Você acha que sabe o que seu filho vê na internet?</h3>
-          <div class="punch">Você não sabe.</div>
+
+  <!-- TELA 1: Hero -->
+  <section class="screen active" id="screen-hero">
+    <div class="hero">
+      <div class="hero-inner">
+        <div>
+          <h1>O LADO ESCURO<br><span>DA INTERNET</span></h1>
+          <p>Uma simulação realista para pais entenderem, de verdade, o que seus filhos enfrentam online.</p>
+          <div class="card">
+            <h3>Você acha que sabe o que seu filho vê na internet?</h3>
+            <div class="punch">Você não sabe.</div>
+          </div>
+          <div class="hero-alert"><strong>AVISO:</strong> Esta simulação não contém imagens explícitas, mas apresenta contextos reais que podem ser perturbadores.</div>
+          <br><br>
+          <button class="cta-primary" id="btn-start">Iniciar Imersão</button>
         </div>
-        <ul>
-          <li>Assédios disfarçados de amizade</li>
-          <li>Ameaças e manipulações psicológicas</li>
-          <li>Conteúdos impróprios compartilhados em grupos</li>
-          <li>Linguagens codificadas usadas para enganar menores</li>
-        </ul>
-        <div class="alert"><strong>AVISO:</strong> Esta simulação não contém imagens explícitas, mas apresenta contextos reais que podem ser perturbadores.</div>
-        <button class="cta-primary" id="btn-start">Iniciar Imersão</button>
-      </div>
-      <div>
-        <div style="background:#121216;border:1px solid #1f2026;border-radius:12px;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,0.35);color:#d8dce6;">
-          <h3 style="margin:0 0 12px;font-size:20px;color:#fff;">O que vai acontecer?</h3>
-          <p style="margin:0 0 10px;line-height:1.6;">Você entrará em um ambiente simulado, inspirado em casos reais, que mostra:</p>
-          <ul style="padding-left:18px;margin:0 0 12px;line-height:1.5;">
-            <li>Assédios disfarçados de amizade</li>
-            <li>Ameaças e manipulações psicológicas</li>
-            <li>Conteúdos impróprios compartilhados em grupos</li>
-            <li>Linguagens codificadas usadas para enganar menores</li>
-          </ul>
-          <div class="alert" style="margin-top:10px;">Esta simulação pode ser perturbadora. Use em ambiente adequado.</div>
+        <div>
+          <div style="background:#121216;border:1px solid #1f2026;border-radius:12px;padding:18px;box-shadow:0 12px 30px rgba(0,0,0,0.35);color:#d8dce6;">
+            <h3 style="margin:0 0 12px;font-size:20px;color:#fff;">O que vai acontecer?</h3>
+            <p style="margin:0 0 10px;line-height:1.6;">Você entrará em um ambiente simulado, inspirado em casos reais, que mostra:</p>
+            <ul style="padding-left:18px;margin:0 0 12px;line-height:1.5;">
+              <li>Assédios disfarçados de amizade</li>
+              <li>Ameaças e manipulações psicológicas</li>
+              <li>Conteúdos impróprios compartilhados em grupos</li>
+              <li>Linguagens codificadas usadas para enganar menores</li>
+            </ul>
+            <div class="hero-alert" style="margin-top:10px;">Esta simulação pode ser perturbadora. Use em ambiente adequado.</div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="layout" id="sim-section">
-    <div class="servers">
-      <div class="server">F</div>
-      <div class="divider"></div>
-      <div class="server-icon">🎮</div>
-      <div class="server-icon">🔒</div>
-      <div class="server-icon">⚠️</div>
-    </div>
-    <div class="channels">
-      <div class="header">FortFriends Brasil ▾</div>
-      <div class="section">Canais de texto</div>
-      <div class="channel" data-channel="# fortfriends-geral"># fortfriends-geral</div>
-      <div class="channel" data-channel="# amigos-especiais"># amigos-especiais</div>
-      <div class="channel" data-channel="# conversas-privadas"># conversas-privadas</div>
-      <div class="section">Canais de voz</div>
-      <div class="channel">🔈 Call Geral</div>
-      <div class="channel">🎧 AFK</div>
-      <div style="margin-top:auto; padding:12px; display:flex; gap:10px; align-items:center; color:#cdd4e0;">
-        <div class="avatar" style="width:32px;height:32px;background:#5865f2;">V</div>
-        <div>
-          <div style="font-weight:700;">Visitante</div>
-          <div style="color:#9ea5b5; font-size:12px;">Apenas observando</div>
+  <!-- TELA 2: Simulação Fase 1 -->
+  <section class="screen" id="screen-sim1">
+    <div class="layout">
+      <div class="servers">
+        <div class="server">F</div>
+        <div class="divider"></div>
+        <div class="server-icon">🎮</div>
+        <div class="server-icon">🔒</div>
+        <div class="server-icon">⚠️</div>
+      </div>
+      <div class="channels">
+        <div class="header">FortFriends Brasil ▾</div>
+        <div class="section">Canais de texto</div>
+        <div class="channel active"># fortfriends-geral</div>
+        <div class="channel"># amigos-especiais</div>
+        <div class="channel"># conversas-privadas</div>
+        <div class="section">Canais de voz</div>
+        <div class="channel">🔈 Call Geral</div>
+        <div class="channel">🎧 AFK</div>
+        <div style="margin-top:auto; padding:12px; display:flex; gap:10px; align-items:center; color:#cdd4e0;">
+          <div class="avatar" style="width:32px;height:32px;background:#5865f2;">V</div>
+          <div>
+            <div style="font-weight:700;">Visitante</div>
+            <div style="color:#9ea5b5; font-size:12px;">Apenas observando</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="main">
-      <div class="topbar">
-        <span id="top-channel" style="font-weight:800;"># fortfriends-geral</span>
-        <span class="topic" id="top-topic">Servidor público de Fortnite Brasil</span>
-        <div class="online"><span>👥</span><span class="dot"></span><span id="top-online">12 online</span></div>
+      <div class="main">
+        <div class="topbar">
+          <span style="font-weight:800;"># fortfriends-geral</span>
+          <span class="topic">Servidor público de Fortnite Brasil</span>
+          <div class="online"><span>👥</span><span class="dot"></span><span>12 online</span></div>
+        </div>
+        <div class="chat" id="chat1"></div>
+        <div class="footer"><button class="next" id="next1">Próxima Fase (1/3)</button></div>
       </div>
-      <div class="chat" id="chat"></div>
-      <div class="footer"><button class="next" id="next">Próxima Fase (1/3)</button></div>
     </div>
-  </div>
+  </section>
 
-  <div class="pre-offer" id="pre-offer">
-    <div class="block">
-      <h2>Esse ambiente é falso.</h2>
-      <p>Mas situações idênticas acontecem todos os dias com milhares de crianças brasileiras.</p>
+  <!-- TELA 3: Simulação Fase 2 -->
+  <section class="screen" id="screen-sim2">
+    <div class="layout">
+      <div class="servers">
+        <div class="server">F</div>
+        <div class="divider"></div>
+        <div class="server-icon">🎮</div>
+        <div class="server-icon">🔒</div>
+        <div class="server-icon">⚠️</div>
+      </div>
+      <div class="channels">
+        <div class="header">FortFriends Brasil ▾</div>
+        <div class="section">Canais de texto</div>
+        <div class="channel"># fortfriends-geral</div>
+        <div class="channel active"># amigos-especiais</div>
+        <div class="channel"># conversas-privadas</div>
+        <div class="section">Canais de voz</div>
+        <div class="channel">🔈 Call Geral</div>
+        <div class="channel">🎧 AFK</div>
+        <div style="margin-top:auto; padding:12px; display:flex; gap:10px; align-items:center; color:#cdd4e0;">
+          <div class="avatar" style="width:32px;height:32px;background:#5865f2;">V</div>
+          <div>
+            <div style="font-weight:700;">Visitante</div>
+            <div style="color:#9ea5b5; font-size:12px;">Apenas observando</div>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="topbar">
+          <span style="font-weight:800;"># amigos-especiais</span>
+          <span class="topic">Grupo privado (6 membros)</span>
+          <div class="online"><span>👥</span><span class="dot"></span><span>6 online</span></div>
+        </div>
+        <div class="chat" id="chat2"></div>
+        <div class="footer"><button class="next" id="next2">Próxima Fase (2/3)</button></div>
+      </div>
     </div>
-    <div class="block">
-      <h3>O que você pode fazer agora?</h3>
-      <p>Conhecer os perigos é apenas o primeiro passo. Veja como proteger seus filhos efetivamente.</p>
-    </div>
-    <div class="block">
-      <h3>Principais Perigos Online</h3>
-      <p>Entenda as ameaças mais comuns</p>
-      <ul>
-        <li>Aliciamento (grooming) em chats de jogos online, onde adultos se passam por crianças para ganhar confiança</li>
-        <li>Exposição a conteúdo sexual, violento ou impróprio para a idade</li>
-        <li>Cyberbullying e agressões verbais constantes em grupos e comunidades</li>
-        <li>Golpes financeiros e roubo de contas através de links maliciosos</li>
-        <li>Compartilhamento inconsciente de informações pessoais e localização</li>
-      </ul>
-    </div>
-    <div class="block">
-      <h3>Sinais de Alerta</h3>
-      <p>Como identificar problemas</p>
-      <ul>
-        <li>Mudanças súbitas de comportamento, irritabilidade ou isolamento social</li>
-        <li>Esconder a tela do computador ou celular quando você se aproxima</li>
-        <li>Uso excessivo de dispositivos eletrônicos, especialmente durante a noite</li>
-        <li>Novos "amigos" online que não conhece pessoalmente e evita mencionar</li>
-        <li>Ansiedade ou desconforto ao falar sobre suas atividades online</li>
-      </ul>
-    </div>
-    <div class="block">
-      <h3>Como Conversar</h3>
-      <p>Sem perder a confiança</p>
-      <ul>
-        <li>Não invada a privacidade agressivamente - isso quebra a confiança</li>
-        <li>Demonstre interesse genuíno nas atividades online do seu filho</li>
-        <li>Explique os perigos reais sem proibir completamente o acesso</li>
-        <li>Mantenha um diálogo aberto e constante sobre experiências digitais</li>
-        <li>Seja um porto seguro onde seu filho pode relatar situações estranhas</li>
-      </ul>
-    </div>
-    <div class="block">
-      <h3>Configurações de Segurança</h3>
-      <p>Proteção técnica essencial</p>
-      <ul>
-        <li>Ativar controle parental nativo em todos os dispositivos e consoles</li>
-        <li>Configurar privacidade máxima em jogos, redes sociais e aplicativos</li>
-        <li>Desabilitar comunicação com desconhecidos em jogos online</li>
-        <li>Monitorar tempo de tela e estabelecer limites saudáveis</li>
-        <li>Revisar periodicamente a lista de amigos e contatos online</li>
-      </ul>
-    </div>
-    <div class="block">
-      <h3>Prevenção Ativa</h3>
-      <p>Medidas proativas</p>
-      <ul>
-        <li>Estabelecer regras claras e acordadas sobre uso da internet</li>
-        <li>Criar horários específicos para atividades online e offline</li>
-        <li>Manter computadores e dispositivos em áreas comuns da casa</li>
-        <li>Usar aplicativos confiáveis de monitoramento parental</li>
-        <li>Educar sobre os riscos de compartilhar dados pessoais online</li>
-      </ul>
-    </div>
-    <div class="block">
-      <h3>Como Denunciar</h3>
-      <p>Quando e onde agir</p>
-      <ul>
-        <li>Polícia Federal: denúncia.prf.gov.br</li>
-        <li>Safernet Brasil: new.safernet.org.br</li>
-        <li>Disque 100 para Direitos Humanos (ligação gratuita)</li>
-        <li>Registre todas as evidências através de capturas de tela</li>
-        <li>Não apague as conversas ou mensagens antes de fazer a denúncia oficial</li>
-      </ul>
-    </div>
-    <div class="block">
-      <h3>Pronto para proteger sua família?</h3>
-      <button class="cta-pre" onclick="alert('Solução completa não incluída nesta cópia.');">Ver Solução Completa</button>
-    </div>
-  </div>
+  </section>
 
-  <section class="offer" id="offer">
-    <div class="offer-card">
-      <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;color:#7dd3fc;font-weight:700;">🛡️ Proteja Seu Filho Agora</div>
-      <h3 style="margin:0 0 6px;font-size:24px;color:#d8e7ff;">Proteja Seu Filho Agora</h3>
-      <p style="margin:0 0 14px;color:#9bb3d4;line-height:1.6;">Você viu os perigos. Agora tenha acesso ao kit completo para proteger seus filhos online.</p>
-      <div class="stat">+9.000 pais<br><span style="color:#9bb3d4; font-weight:500;">já protegeram seus filhos com este método</span></div>
-      <ul class="kit-list">
-        <li>Guia Completo de Segurança Digital (PDF 50+ páginas)</li>
-        <li>Roteiro de Diálogo com Seus Filhos</li>
-        <li>Checklist de Configurações para cada app</li>
-        <li>Lista de Apps de Monitoramento testados</li>
-        <li>Suporte por 7 dias com especialistas</li>
-      </ul>
-      <div class="price"><span class="now">R$ 19,90</span><span class="old">R$ 97</span></div>
-      <button class="btn-offer" onclick="window.location.href='https://pay.kirvano.com/efcc738d-0060-41b7-8dbf-7b7d6e3bd9b3'">Garantir Acesso Agora</button>
-      <div style="text-align:center; color:#8ea8c9; font-size:13px; margin-top:10px;">✓ Acesso imediato • ✓ Garantia de 7 dias • ✓ Pagamento seguro</div>
+  <!-- TELA 4: Simulação Fase 3 -->
+  <section class="screen" id="screen-sim3">
+    <div class="layout">
+      <div class="servers">
+        <div class="server">F</div>
+        <div class="divider"></div>
+        <div class="server-icon">🎮</div>
+        <div class="server-icon">🔒</div>
+        <div class="server-icon">⚠️</div>
+      </div>
+      <div class="channels">
+        <div class="header">FortFriends Brasil ▾</div>
+        <div class="section">Canais de texto</div>
+        <div class="channel"># fortfriends-geral</div>
+        <div class="channel"># amigos-especiais</div>
+        <div class="channel active"># conversas-privadas</div>
+        <div class="section">Canais de voz</div>
+        <div class="channel">🔈 Call Geral</div>
+        <div class="channel">🎧 AFK</div>
+        <div style="margin-top:auto; padding:12px; display:flex; gap:10px; align-items:center; color:#cdd4e0;">
+          <div class="avatar" style="width:32px;height:32px;background:#5865f2;">V</div>
+          <div>
+            <div style="font-weight:700;">Visitante</div>
+            <div style="color:#9ea5b5; font-size:12px;">Apenas observando</div>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="topbar">
+          <span style="font-weight:800;"># conversas-privadas</span>
+          <span class="topic">Chat direto</span>
+          <div class="online"><span>👥</span><span class="dot"></span><span>2 online</span></div>
+        </div>
+        <div class="chat" id="chat3"></div>
+        <div class="footer"><button class="next" id="next3">Ver Conteúdo Educativo</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 5: Pré-Oferta -->
+  <section class="screen" id="screen-preoffer">
+    <div class="pre-offer">
+      <div class="block">
+        <h2>Esse ambiente é falso.</h2>
+        <p>Mas situações idênticas acontecem todos os dias com milhares de crianças brasileiras.</p>
+      </div>
+      <div class="block">
+        <h3>O que você pode fazer agora?</h3>
+        <p>Conhecer os perigos é apenas o primeiro passo. Veja como proteger seus filhos efetivamente.</p>
+      </div>
+      <div class="block">
+        <h3>Principais Perigos Online</h3>
+        <p>Entenda as ameaças mais comuns</p>
+        <ul>
+          <li>Aliciamento (grooming) em chats de jogos online, onde adultos se passam por crianças para ganhar confiança</li>
+          <li>Exposição a conteúdo sexual, violento ou impróprio para a idade</li>
+          <li>Cyberbullying e agressões verbais constantes em grupos e comunidades</li>
+          <li>Golpes financeiros e roubo de contas através de links maliciosos</li>
+          <li>Compartilhamento inconsciente de informações pessoais e localização</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Sinais de Alerta</h3>
+        <p>Como identificar problemas</p>
+        <ul>
+          <li>Mudanças súbitas de comportamento, irritabilidade ou isolamento social</li>
+          <li>Esconder a tela do computador ou celular quando você se aproxima</li>
+          <li>Uso excessivo de dispositivos eletrônicos, especialmente durante a noite</li>
+          <li>Novos "amigos" online que não conhece pessoalmente e evita mencionar</li>
+          <li>Ansiedade ou desconforto ao falar sobre suas atividades online</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Como Conversar</h3>
+        <p>Sem perder a confiança</p>
+        <ul>
+          <li>Não invada a privacidade agressivamente - isso quebra a confiança</li>
+          <li>Demonstre interesse genuíno nas atividades online do seu filho</li>
+          <li>Explique os perigos reais sem proibir completamente o acesso</li>
+          <li>Mantenha um diálogo aberto e constante sobre experiências digitais</li>
+          <li>Seja um porto seguro onde seu filho pode relatar situações estranhas</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Configurações de Segurança</h3>
+        <p>Proteção técnica essencial</p>
+        <ul>
+          <li>Ativar controle parental nativo em todos os dispositivos e consoles</li>
+          <li>Configurar privacidade máxima em jogos, redes sociais e aplicativos</li>
+          <li>Desabilitar comunicação com desconhecidos em jogos online</li>
+          <li>Monitorar tempo de tela e estabelecer limites saudáveis</li>
+          <li>Revisar periodicamente a lista de amigos e contatos online</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Prevenção Ativa</h3>
+        <p>Medidas proativas</p>
+        <ul>
+          <li>Estabelecer regras claras e acordadas sobre uso da internet</li>
+          <li>Criar horários específicos para atividades online e offline</li>
+          <li>Manter computadores e dispositivos em áreas comuns da casa</li>
+          <li>Usar aplicativos confiáveis de monitoramento parental</li>
+          <li>Educar sobre os riscos de compartilhar dados pessoais online</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Como Denunciar</h3>
+        <p>Quando e onde agir</p>
+        <ul>
+          <li>Polícia Federal: denúncia.prf.gov.br</li>
+          <li>Safernet Brasil: new.safernet.org.br</li>
+          <li>Disque 100 para Direitos Humanos (ligação gratuita)</li>
+          <li>Registre todas as evidências através de capturas de tela</li>
+          <li>Não apague as conversas ou mensagens antes de fazer a denúncia oficial</li>
+        </ul>
+      </div>
+      <div class="block">
+        <h3>Pronto para proteger sua família?</h3>
+        <button class="cta-pre" id="btn-preoffer">Ver Solução Completa</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TELA 6: Oferta -->
+  <section class="screen" id="screen-offer">
+    <div class="offer">
+      <div class="offer-card">
+        <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px;color:#7dd3fc;font-weight:700;">🛡️ Proteja Seu Filho Agora</div>
+        <h3 style="margin:0 0 6px;font-size:24px;color:#d8e7ff;">Proteja Seu Filho Agora</h3>
+        <p style="margin:0 0 14px;color:#9bb3d4;line-height:1.6;">Você viu os perigos. Agora tenha acesso ao kit completo para proteger seus filhos online.</p>
+        <div class="stat">+9.000 pais<br><span style="color:#9bb3d4; font-weight:500;">já protegeram seus filhos com este método</span></div>
+        <ul class="kit-list">
+          <li>Guia Completo de Segurança Digital (PDF 50+ páginas)</li>
+          <li>Roteiro de Diálogo com Seus Filhos</li>
+          <li>Checklist de Configurações para cada app</li>
+          <li>Lista de Apps de Monitoramento testados</li>
+          <li>Suporte por 7 dias com especialistas</li>
+        </ul>
+        <div class="price"><span class="now">R$ 19,90</span><span class="old">R$ 97</span></div>
+        <button class="btn-offer" onclick="window.location.href='https://pay.kirvano.com/efcc738d-0060-41b7-8dbf-7b7d6e3bd9b3'">Garantir Acesso Agora</button>
+        <div style="text-align:center; color:#8ea8c9; font-size:13px; margin-top:10px;">✓ Acesso imediato • ✓ Garantia de 7 dias • ✓ Pagamento seguro</div>
+      </div>
     </div>
   </section>
 
   <script>
-    const chat = document.getElementById('chat');
-    const nextBtn = document.getElementById('next');
-    const topChannel = document.getElementById('top-channel');
-    const topTopic = document.getElementById('top-topic');
-    const topOnline = document.getElementById('top-online');
-    const channelItems = document.querySelectorAll('.channel[data-channel]');
+    // Sistema de telas
+    const screens = ['hero', 'sim1', 'sim2', 'sim3', 'preoffer', 'offer'];
 
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen-' + screenId).classList.add('active');
+    }
+
+    // Dados das fases
     const phases = [
       {
-        channel:'# fortfriends-geral', topic:'Servidor público de Fortnite Brasil', online:'12 online',
         list:[
           {u:'D4rkWolf13', t:'14:23', msg:'fala galera', color:'#4f8bff'},
           {u:'D4rkWolf13', t:'14:23', msg:'bora uma ranked??', color:'#4f8bff'},
-          {typing:true, u:'SweetAngel', color:'#f472b6'},
           {u:'SweetAngel', t:'14:24', msg:'oiiii\nbora simm, vou ligar mic', color:'#f472b6'},
           {u:'ProKillerX', t:'14:24', msg:'kkkkkk', color:'#ef4444'},
           {u:'ProKillerX', t:'14:24', msg:'vcs são mt ruim kkkkkk perderam ontem feio', color:'#ef4444', alert:'Bullying e linguagem tóxica são extremamente comuns em chats de jogos'},
@@ -297,7 +408,6 @@
         ]
       },
       {
-        channel:'# amigos-especiais', topic:'Grupo privado (6 membros)', online:'6 online',
         list:[
           {u:'M4st3rHelp', t:'15:12', msg:'e aí, conseguiu fazer aquelas missões q te falei?', color:'#22c55e'},
           {u:'YumiKitty', t:'15:12', msg:'conseguiii\nvlw msm pela ajuda', color:'#f472b6'},
@@ -313,7 +423,6 @@
         ]
       },
       {
-        channel:'# conversas-privadas', topic:'Chat direto', online:'2 online',
         list:[
           {u:'M4st3rHelp', t:'16:45', msg:'ei, vc tá online', color:'#22c55e'},
           {u:'YumiKitty', t:'16:45', msg:'oi', color:'#f472b6'},
@@ -333,12 +442,12 @@
       }
     ];
 
-    let phaseIndex = 0;
-
+    // Funções de chat
     function avatarStyle(color){
       return `style="background:${color};"`;
     }
-    function addTyping(entry){
+
+    function addTyping(chat, entry){
       const row = document.createElement('div');
       row.className = 'msg';
       row.innerHTML = `
@@ -348,9 +457,12 @@
             ${entry.u} <span class="typing"><span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span></span> <span style="margin-left:6px;">está digitando...</span>
           </div>
         </div>`;
-      chat.appendChild(row); chat.scrollTop = chat.scrollHeight; return row;
+      chat.appendChild(row);
+      chat.scrollTop = chat.scrollHeight;
+      return row;
     }
-    function addMessage(entry){
+
+    function addMessage(chat, entry){
       const row = document.createElement('div');
       row.className = 'msg';
       row.innerHTML = `
@@ -360,49 +472,53 @@
           <div class="bubble">${(entry.msg||'').replace(/\n/g,'<br>')}</div>
           ${entry.alert ? `<div class="alert">${entry.alert}</div>` : ''}
         </div>`;
-      chat.appendChild(row); chat.scrollTop = chat.scrollHeight;
+      chat.appendChild(row);
+      chat.scrollTop = chat.scrollHeight;
     }
 
-    async function playPhase(idx){
-      const phase = phases[idx];
-      chat.innerHTML='';
-      nextBtn.disabled = true;
-      topChannel.textContent = phase.channel;
-      topTopic.textContent = phase.topic;
-      topOnline.textContent = phase.online;
-      channelItems.forEach(el=>{
-        el.classList.toggle('active', el.dataset.channel === phase.channel);
-      });
-      const list = phase.list;
-      for(const item of list){
-        const tRow = addTyping(item);
-        await new Promise(r=>setTimeout(r, 600));
+    async function playPhase(phaseIdx, chatId, btnId, nextScreenId){
+      const chat = document.getElementById(chatId);
+      const btn = document.getElementById(btnId);
+      const phase = phases[phaseIdx];
+
+      chat.innerHTML = '';
+      btn.disabled = true;
+
+      for(const item of phase.list){
+        const tRow = addTyping(chat, item);
+        await new Promise(r => setTimeout(r, 600));
         tRow.remove();
-        addMessage(item);
-        await new Promise(r=>setTimeout(r, Math.min(1600, 500 + (item.msg? item.msg.length*18:600))));
+        addMessage(chat, item);
+        await new Promise(r => setTimeout(r, Math.min(1600, 500 + (item.msg ? item.msg.length * 18 : 600))));
       }
-      nextBtn.disabled = false;
-      if(idx === 0) nextBtn.textContent = 'Próxima Fase (1/3)';
-      else if(idx === 1) nextBtn.textContent = 'Próxima Fase (2/3)';
-      else nextBtn.textContent = 'Ver Conteúdo Educativo';
+
+      btn.disabled = false;
+      btn.onclick = () => showScreen(nextScreenId);
     }
 
-    document.getElementById('btn-start').addEventListener('click', ()=>{
-      document.getElementById('sim-section').scrollIntoView({behavior:'smooth'});
+    // Event listeners
+    document.getElementById('btn-start').addEventListener('click', () => {
+      showScreen('sim1');
+      playPhase(0, 'chat1', 'next1', 'sim2');
     });
 
-    nextBtn.addEventListener('click', ()=>{
-      if(phaseIndex < phases.length - 1){
-        phaseIndex += 1;
-        playPhase(phaseIndex);
-      } else {
-        document.getElementById('pre-offer').style.display = 'block';
-        document.getElementById('pre-offer').scrollIntoView({behavior:'smooth'});
-        document.getElementById('offer').style.display = 'block';
-      }
+    document.getElementById('next1').addEventListener('click', () => {
+      showScreen('sim2');
+      playPhase(1, 'chat2', 'next2', 'sim3');
     });
 
-    playPhase(0);
+    document.getElementById('next2').addEventListener('click', () => {
+      showScreen('sim3');
+      playPhase(2, 'chat3', 'next3', 'preoffer');
+    });
+
+    document.getElementById('next3').addEventListener('click', () => {
+      showScreen('preoffer');
+    });
+
+    document.getElementById('btn-preoffer').addEventListener('click', () => {
+      showScreen('offer');
+    });
   </script>
 </body>
 </html>
