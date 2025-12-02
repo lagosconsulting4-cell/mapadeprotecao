@@ -59,7 +59,7 @@
     .cta-primary { display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:14px 20px; border-radius:10px; background: var(--hero-red); color:#fff; font-weight:800; font-size:16px; letter-spacing:0.2px; border:none; cursor:pointer; box-shadow:0 10px 30px rgba(227,32,32,0.35); }
 
     /* Simulação Discord */
-    .layout { display: grid; grid-template-columns: 72px 240px 1fr; height: 100%; }
+    .layout { display: grid; grid-template-columns: 72px 240px 1fr; height: 100%; overflow:hidden; }
     .servers { background: #1a1b21; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 12px 8px; }
     .server { width: 48px; height: 48px; border-radius: 16px; background: #5865f2; color:#fff; display:grid; place-items:center; font-weight:800; cursor:pointer; }
     .divider { width: 60%; height: 2px; background: #2f3136; border-radius: 10px; }
@@ -71,13 +71,13 @@
     .channel { padding: 8px 12px; margin: 0 8px 4px; border-radius: 8px; display:flex; align-items:center; gap:8px; color: #9ea5b5; cursor:pointer; }
     .channel.active { background:#3a3d45; color:#fff; }
 
-    .main { background: #313338; display:flex; flex-direction:column; height:100%; }
+    .main { background: #313338; display:flex; flex-direction:column; height:100%; min-height:0; }
     .topbar { background:#2f3136; border-bottom:1px solid #1f2026; padding:10px 14px; display:flex; align-items:center; gap:12px; color:#e5e7eb; flex-shrink:0; }
     .topbar .topic { color: var(--muted); font-size: 13px; }
     .topbar .online { margin-left:auto; display:flex; align-items:center; gap:8px; color: var(--muted); }
     .dot { width:8px; height:8px; border-radius:50%; background:#23a55a; }
 
-    .chat { flex:1; overflow-y:auto; padding:16px 18px 20px; }
+    .chat { flex:1; overflow-y:auto; padding:16px 18px 20px; min-height:0; scroll-behavior:smooth; }
     .msg { display:flex; gap:10px; margin-bottom:14px; }
     .avatar { width:40px; height:40px; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:800; font-size:12px; }
     .bubble { color:#e6e8f0; line-height:1.5; }
@@ -95,15 +95,25 @@
     .next:disabled { opacity:0.6; cursor:not-allowed; }
 
     /* Pré-oferta */
-    .pre-offer { flex:1; padding: 36px 18px 48px; background:#0c0c10; color:#f5f6f7; overflow-y:auto; }
-    .pre-offer .block { margin-bottom: 26px; max-width:800px; margin-left:auto; margin-right:auto; }
-    .pre-offer h2 { margin: 0 0 10px; font-size: 32px; line-height: 1.2; color:#e8eaee; }
-    .pre-offer h3 { margin: 14px 0 8px; font-size: 20px; }
-    .pre-offer p { margin: 6px 0 10px; color:#cfd3de; line-height: 1.6; }
-    .pre-offer ul { margin: 10px 0 0; padding-left: 18px; color:#d8dce6; line-height: 1.6; display:grid; gap:6px; }
-    .pre-grid { display:grid; gap:14px; }
-    .card-soft { background:#121216; border:1px solid #1f2026; border-radius:12px; padding:14px 16px; box-shadow:0 10px 30px rgba(0,0,0,0.25); }
-    .cta-pre { display:inline-flex; align-items:center; justify-content:center; padding:14px 20px; border-radius:10px; background:#ef4444; color:#fff; font-weight:800; border:none; cursor:pointer; box-shadow:0 12px 30px rgba(239,68,68,0.35); }
+    .pre-offer { flex:1; padding: 36px 18px 48px; background: linear-gradient(180deg, #0c0c10 0%, #0f1318 50%, #0c0c10 100%); color:#f5f6f7; overflow-y:auto; }
+    .pre-offer .container { max-width:900px; margin:0 auto; }
+    .pre-offer .intro { text-align:center; margin-bottom:32px; }
+    .pre-offer h2 { margin: 0 0 10px; font-size: 32px; line-height: 1.2; color:#fff; }
+    .pre-offer .intro p { font-size:18px; color:#9ea5b5; }
+    .pre-offer .section-title { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+    .pre-offer .section-title .icon { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; font-size:20px; flex-shrink:0; }
+    .pre-offer .section-title h3 { margin:0; font-size:20px; color:#fff; }
+    .pre-offer .section-title p { margin:4px 0 0; font-size:14px; color:#9ea5b5; }
+    .pre-offer .info-card { background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:20px; margin-bottom:20px; }
+    .pre-offer .info-card ul { margin: 0; padding-left: 0; list-style:none; color:#d8dce6; line-height: 1.7; display:grid; gap:10px; }
+    .pre-offer .info-card li { display:flex; align-items:flex-start; gap:10px; }
+    .pre-offer .info-card li::before { content:''; display:none; }
+    .pre-offer .bullet { width:6px; height:6px; border-radius:50%; margin-top:8px; flex-shrink:0; }
+    .pre-offer .grid-2 { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:20px; }
+    .pre-offer .cta-section { text-align:center; margin-top:32px; padding:28px; background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(239,68,68,0.05)); border:1px solid rgba(239,68,68,0.2); border-radius:16px; }
+    .pre-offer .cta-section h3 { margin:0 0 16px; font-size:24px; color:#fff; }
+    .cta-pre { display:inline-flex; align-items:center; justify-content:center; padding:16px 32px; border-radius:12px; background: linear-gradient(135deg, #ef4444, #dc2626); color:#fff; font-weight:800; font-size:17px; border:none; cursor:pointer; box-shadow:0 12px 30px rgba(239,68,68,0.4); transition: transform 0.2s, box-shadow 0.2s; }
+    .cta-pre:hover { transform:translateY(-2px); box-shadow:0 16px 40px rgba(239,68,68,0.5); }
 
     /* Oferta */
     .offer { flex:1; padding: 32px 18px 48px; background: var(--offer-blue); color:#d8e7ff; overflow-y:auto; display:flex; align-items:center; justify-content:center; }
@@ -278,83 +288,105 @@
   <!-- TELA 5: Pré-Oferta -->
   <section class="screen" id="screen-preoffer">
     <div class="pre-offer">
-      <div class="block">
-        <h2>Esse ambiente é falso.</h2>
-        <p>Mas situações idênticas acontecem todos os dias com milhares de crianças brasileiras.</p>
-      </div>
-      <div class="block">
-        <h3>O que você pode fazer agora?</h3>
-        <p>Conhecer os perigos é apenas o primeiro passo. Veja como proteger seus filhos efetivamente.</p>
-      </div>
-      <div class="block">
-        <h3>Principais Perigos Online</h3>
-        <p>Entenda as ameaças mais comuns</p>
-        <ul>
-          <li>Aliciamento (grooming) em chats de jogos online, onde adultos se passam por crianças para ganhar confiança</li>
-          <li>Exposição a conteúdo sexual, violento ou impróprio para a idade</li>
-          <li>Cyberbullying e agressões verbais constantes em grupos e comunidades</li>
-          <li>Golpes financeiros e roubo de contas através de links maliciosos</li>
-          <li>Compartilhamento inconsciente de informações pessoais e localização</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h3>Sinais de Alerta</h3>
-        <p>Como identificar problemas</p>
-        <ul>
-          <li>Mudanças súbitas de comportamento, irritabilidade ou isolamento social</li>
-          <li>Esconder a tela do computador ou celular quando você se aproxima</li>
-          <li>Uso excessivo de dispositivos eletrônicos, especialmente durante a noite</li>
-          <li>Novos "amigos" online que não conhece pessoalmente e evita mencionar</li>
-          <li>Ansiedade ou desconforto ao falar sobre suas atividades online</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h3>Como Conversar</h3>
-        <p>Sem perder a confiança</p>
-        <ul>
-          <li>Não invada a privacidade agressivamente - isso quebra a confiança</li>
-          <li>Demonstre interesse genuíno nas atividades online do seu filho</li>
-          <li>Explique os perigos reais sem proibir completamente o acesso</li>
-          <li>Mantenha um diálogo aberto e constante sobre experiências digitais</li>
-          <li>Seja um porto seguro onde seu filho pode relatar situações estranhas</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h3>Configurações de Segurança</h3>
-        <p>Proteção técnica essencial</p>
-        <ul>
-          <li>Ativar controle parental nativo em todos os dispositivos e consoles</li>
-          <li>Configurar privacidade máxima em jogos, redes sociais e aplicativos</li>
-          <li>Desabilitar comunicação com desconhecidos em jogos online</li>
-          <li>Monitorar tempo de tela e estabelecer limites saudáveis</li>
-          <li>Revisar periodicamente a lista de amigos e contatos online</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h3>Prevenção Ativa</h3>
-        <p>Medidas proativas</p>
-        <ul>
-          <li>Estabelecer regras claras e acordadas sobre uso da internet</li>
-          <li>Criar horários específicos para atividades online e offline</li>
-          <li>Manter computadores e dispositivos em áreas comuns da casa</li>
-          <li>Usar aplicativos confiáveis de monitoramento parental</li>
-          <li>Educar sobre os riscos de compartilhar dados pessoais online</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h3>Como Denunciar</h3>
-        <p>Quando e onde agir</p>
-        <ul>
-          <li>Polícia Federal: denúncia.prf.gov.br</li>
-          <li>Safernet Brasil: new.safernet.org.br</li>
-          <li>Disque 100 para Direitos Humanos (ligação gratuita)</li>
-          <li>Registre todas as evidências através de capturas de tela</li>
-          <li>Não apague as conversas ou mensagens antes de fazer a denúncia oficial</li>
-        </ul>
-      </div>
-      <div class="block">
-        <h3>Pronto para proteger sua família?</h3>
-        <button class="cta-pre" id="btn-preoffer">Ver Solução Completa</button>
+      <div class="container">
+        <!-- Introdução -->
+        <div class="intro">
+          <h2>Esse ambiente é falso.</h2>
+          <p>Mas situações idênticas acontecem todos os dias com milhares de crianças brasileiras.</p>
+        </div>
+
+        <!-- Grid de cards principais -->
+        <div class="grid-2">
+          <!-- Perigos Online -->
+          <div class="info-card" style="border-left:3px solid #ef4444;">
+            <div class="section-title">
+              <div class="icon" style="background:rgba(239,68,68,0.15); color:#ef4444;">⚠️</div>
+              <div>
+                <h3>Principais Perigos</h3>
+                <p>Ameaças mais comuns</p>
+              </div>
+            </div>
+            <ul>
+              <li><span class="bullet" style="background:#ef4444;"></span>Aliciamento (grooming) em chats de jogos online</li>
+              <li><span class="bullet" style="background:#ef4444;"></span>Exposição a conteúdo impróprio para a idade</li>
+              <li><span class="bullet" style="background:#ef4444;"></span>Cyberbullying em grupos e comunidades</li>
+              <li><span class="bullet" style="background:#ef4444;"></span>Golpes e roubo de contas</li>
+            </ul>
+          </div>
+
+          <!-- Sinais de Alerta -->
+          <div class="info-card" style="border-left:3px solid #f59e0b;">
+            <div class="section-title">
+              <div class="icon" style="background:rgba(245,158,11,0.15); color:#f59e0b;">👁️</div>
+              <div>
+                <h3>Sinais de Alerta</h3>
+                <p>Como identificar problemas</p>
+              </div>
+            </div>
+            <ul>
+              <li><span class="bullet" style="background:#f59e0b;"></span>Mudanças súbitas de comportamento</li>
+              <li><span class="bullet" style="background:#f59e0b;"></span>Esconder a tela quando você se aproxima</li>
+              <li><span class="bullet" style="background:#f59e0b;"></span>Uso excessivo de dispositivos à noite</li>
+              <li><span class="bullet" style="background:#f59e0b;"></span>Novos "amigos" online desconhecidos</li>
+            </ul>
+          </div>
+
+          <!-- Como Conversar -->
+          <div class="info-card" style="border-left:3px solid #22c55e;">
+            <div class="section-title">
+              <div class="icon" style="background:rgba(34,197,94,0.15); color:#22c55e;">💬</div>
+              <div>
+                <h3>Como Conversar</h3>
+                <p>Sem perder a confiança</p>
+              </div>
+            </div>
+            <ul>
+              <li><span class="bullet" style="background:#22c55e;"></span>Não invada a privacidade agressivamente</li>
+              <li><span class="bullet" style="background:#22c55e;"></span>Demonstre interesse genuíno</li>
+              <li><span class="bullet" style="background:#22c55e;"></span>Explique os perigos sem proibir tudo</li>
+              <li><span class="bullet" style="background:#22c55e;"></span>Seja um porto seguro para relatos</li>
+            </ul>
+          </div>
+
+          <!-- Configurações de Segurança -->
+          <div class="info-card" style="border-left:3px solid #3b82f6;">
+            <div class="section-title">
+              <div class="icon" style="background:rgba(59,130,246,0.15); color:#3b82f6;">🔒</div>
+              <div>
+                <h3>Segurança Técnica</h3>
+                <p>Proteção essencial</p>
+              </div>
+            </div>
+            <ul>
+              <li><span class="bullet" style="background:#3b82f6;"></span>Ativar controle parental nos dispositivos</li>
+              <li><span class="bullet" style="background:#3b82f6;"></span>Configurar privacidade máxima</li>
+              <li><span class="bullet" style="background:#3b82f6;"></span>Desabilitar chat com desconhecidos</li>
+              <li><span class="bullet" style="background:#3b82f6;"></span>Monitorar tempo de tela</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card de denúncia -->
+        <div class="info-card" style="border-left:3px solid #8b5cf6; margin-bottom:0;">
+          <div class="section-title">
+            <div class="icon" style="background:rgba(139,92,246,0.15); color:#8b5cf6;">📢</div>
+            <div>
+              <h3>Como Denunciar</h3>
+              <p>Quando e onde agir</p>
+            </div>
+          </div>
+          <ul>
+            <li><span class="bullet" style="background:#8b5cf6;"></span><strong>Polícia Federal:</strong> denúncia.pf.gov.br</li>
+            <li><span class="bullet" style="background:#8b5cf6;"></span><strong>Safernet Brasil:</strong> new.safernet.org.br</li>
+            <li><span class="bullet" style="background:#8b5cf6;"></span><strong>Disque 100:</strong> Direitos Humanos (gratuito)</li>
+          </ul>
+        </div>
+
+        <!-- CTA Final -->
+        <div class="cta-section">
+          <h3>Pronto para proteger sua família?</h3>
+          <button class="cta-pre" id="btn-preoffer">Ver Solução Completa</button>
+        </div>
       </div>
     </div>
   </section>
